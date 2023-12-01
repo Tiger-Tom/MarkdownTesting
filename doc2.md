@@ -1,6 +1,6 @@
 # `RunServer` (imported as `RS`)
 > None
-# `Bootstrapper` (shorthand: `RS.BS`)
+# `Bootstrapper` (`RS.BS`)
 
 ## access_entrypoint(...)
 `def access_entrypoint(ep: str)`` -> types.ModuleType`
@@ -44,13 +44,328 @@ def ensure_python_version()`
 > Initializes the entrypoint's class (with self as an argument)
 
 
-# `Util` (shorthand: `RS.U`)
+# `BetterPPrinter` (`RS.U.BetterPPrinter`)
+
+### format(...)
+`@staticmethod
+def format(self, obj, _indent_: int = 0)`` -> Generator`
+> <no doc>
+
+### formats(...)
+`@staticmethod
+def formats(self, obj, joiner: str = )`` -> str`
+> <no doc>
+
+### writes(...)
+`@staticmethod
+def writes(...)`
+<details><summary>Parameters...</summary>
+```python
+    self, obj, fp=<_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>,
+    end: str = 
+, delay: float | None = None, collect: Union = None
+```
+</details>
+> <no doc>
+
+# `Hooks` (`RS.U.Hooks`)
+
+### register(...)
+`@staticmethod
+def register(self, hook: HookType, callback: FuncType)`
+> Adds a callback to be called by __call__(hook)
+
+### unregister(...)
+`@staticmethod
+def unregister(self, hook: HookType, callback: FuncType)`
+> Removes a callback that would be called by __call__(hook) (if it exists)
+
+### unregister_hook(...)
+`@staticmethod
+def unregister_hook(self, hook: HookType)`
+> Deletes all callbacks that would be called by __call__(hook)
+
+# `INIBackedDict` (`RS.U.INIBackedDict`)
+
+### bettergetter(...)
+`@staticmethod
+def bettergetter(...)`
+<details><summary>Parameters...</summary>
+```python
+    self, key: Key, default: Union = Behavior.RAISE,
+    set_default: bool = True
+```
+</details>` -> Union`
+> Gets the value of key
+>     If the key is missing, then:
+>         if default is Behavior.RAISE: raises KeyError
+>         otherwise: returns default, and if set_default is truthy then sets the key to default
+
+### contains(...)
+`@staticmethod
+def contains(self, key: Key, _tree: Optional = None)`` -> bool`
+> Returns whether or not the key exists
+
+### get(...)
+`@staticmethod
+def get(...)`
+<details><summary>Parameters...</summary>
+```python
+    self, key: Key, default: Union = Behavior.RAISE,
+    _tree: Optional = None
+```
+</details>` -> Deserialized`
+> Gets the value of key
+>     If the key is missing, then raises KeyError if default is Behavior.RAISE, otherwise returns default
+
+### get(...)
+`@staticmethod
+def get(...)`
+<details><summary>Parameters...</summary>
+```python
+    self, key: Key, default: Union = Behavior.RAISE,
+    _tree: Optional = None
+```
+</details>` -> Deserialized`
+> Gets the value of key
+>     If the key is missing, then raises KeyError if default is Behavior.RAISE, otherwise returns default
+
+### is_autosyncing(...)
+`@staticmethod
+def is_autosyncing(self)`` -> bool`
+> Returns whether or not the internal watchdog timer is ticking
+
+### items_full(...)
+`@staticmethod
+def items_full(self, start_key: Key, key_join: bool = True)`` -> Generator`
+> Iterates over every (key, value) pair, yielding the entire key
+
+### items_short(...)
+`@staticmethod
+def items_short(self, start_key: Key)`
+> Iterates over every (key, value) pair, yielding the last part of the key
+
+### key(...)
+`@classmethod
+def key(key: Key, top_level: bool = False)`` -> tuple`
+> Transform a string / tuple of strings into a key
+
+### keys(...)
+`@staticmethod
+def keys(self, start_key: Key | None = None, key_join: bool = True)`` -> Generator`
+> Iterates over every key
+
+### path_from_topkey(...)
+`@staticmethod
+def path_from_topkey(self, topkey: str)`
+> Returns the Path corresponding to the top-key's file
+
+### readin(...)
+`@staticmethod
+def readin(self, topkey: str)`
+> Reads in a top-level key
+
+### readin_modified(...)
+`@staticmethod
+def readin_modified(self)`
+> Reads in top-level keys that have been changed
+
+### setitem(...)
+`@staticmethod
+def setitem(...)`
+<details><summary>Parameters...</summary>
+```python
+    self, key: Key, val: Serializable,
+    _tree: Optional = None
+```
+</details>
+> Sets a key to a value
+
+### sort(...)
+`@staticmethod
+def sort(self, by: Callable = <lambda>)`
+> Sorts the data of this INIBackedDict in-place, marking all touched sections as dirty
+
+### start_autosync(...)
+`@staticmethod
+def start_autosync(self)`
+> Starts the internal watchdog timer
+
+### stop_autosync(...)
+`@staticmethod
+def stop_autosync(self)`
+> Stops the internal watchdog timer
+
+### sync(...)
+`@staticmethod
+def sync(self)`
+> Convenience method for writeback_dirty and readin_modified
+
+### values(...)
+`@staticmethod
+def values(self, start_key: Key)`` -> Generator`
+> Iterates over every value
+
+### writeback(...)
+`@staticmethod
+def writeback(...)`
+<details><summary>Parameters...</summary>
+```python
+    self, topkey: str, only_if_dirty: bool = True,
+    clean: bool = True
+```
+</details>
+> Writes back a top-level key
+
+### writeback_dirty(...)
+`@staticmethod
+def writeback_dirty(self)`
+> <no doc>
+
+# `JSONBackedDict` (`RS.U.JSONBackedDict`)
+
+### bettergetter(...)
+`@staticmethod
+def bettergetter(...)`
+<details><summary>Parameters...</summary>
+```python
+    self, key: Key, default: Union = Behavior.RAISE,
+    set_default: bool = True
+```
+</details>` -> Union`
+> Gets the value of key
+>     If the key is missing, then:
+>         if default is Behavior.RAISE: raises KeyError
+>         otherwise: returns default, and if set_default is truthy then sets the key to default
+
+### contains(...)
+`@staticmethod
+def contains(self, key: Key, _tree: Optional = None)`` -> bool`
+> Returns whether or not the key exists
+
+### get(...)
+`@staticmethod
+def get(...)`
+<details><summary>Parameters...</summary>
+```python
+    self, key: Key, default: Union = Behavior.RAISE,
+    _tree: Optional = None
+```
+</details>` -> Deserialized`
+> Gets the value of key
+>     If the key is missing, then raises KeyError if default is Behavior.RAISE, otherwise returns default
+
+### get(...)
+`@staticmethod
+def get(...)`
+<details><summary>Parameters...</summary>
+```python
+    self, key: Key, default: Union = Behavior.RAISE,
+    _tree: Optional = None
+```
+</details>` -> Deserialized`
+> Gets the value of key
+>     If the key is missing, then raises KeyError if default is Behavior.RAISE, otherwise returns default
+
+### is_autosyncing(...)
+`@staticmethod
+def is_autosyncing(self)`` -> bool`
+> Returns whether or not the internal watchdog timer is ticking
+
+### items_full(...)
+`@staticmethod
+def items_full(self, start_key: Key, key_join: bool = True)`` -> Generator`
+> Iterates over every (key, value) pair, yielding the entire key
+
+### items_short(...)
+`@staticmethod
+def items_short(self, start_key: Key)`
+> Iterates over every (key, value) pair, yielding the last part of the key
+
+### key(...)
+`@classmethod
+def key(key: Key, top_level: bool = False)`` -> tuple`
+> Transform a string / tuple of strings into a key
+
+### keys(...)
+`@staticmethod
+def keys(self, start_key: Key | None = None, key_join: bool = True)`` -> Generator`
+> Iterates over every key
+
+### path_from_topkey(...)
+`@staticmethod
+def path_from_topkey(self, topkey: str)`
+> Returns the Path corresponding to the top-key's file
+
+### readin(...)
+`@staticmethod
+def readin(self, topkey: str)`
+> Reads in a top-level key
+
+### readin_modified(...)
+`@staticmethod
+def readin_modified(self)`
+> Reads in top-level keys that have been changed
+
+### setitem(...)
+`@staticmethod
+def setitem(...)`
+<details><summary>Parameters...</summary>
+```python
+    self, key: Key, val: Serializable,
+    _tree: Optional = None
+```
+</details>
+> Sets a key to a value
+
+### sort(...)
+`@staticmethod
+def sort(self, by: Callable = <lambda>)`
+> Sorts the data of this JSONBackedDict (semi-)in-place, marking all touched sections as dirty
+
+### start_autosync(...)
+`@staticmethod
+def start_autosync(self)`
+> Starts the internal watchdog timer
+
+### stop_autosync(...)
+`@staticmethod
+def stop_autosync(self)`
+> Stops the internal watchdog timer
+
+### sync(...)
+`@staticmethod
+def sync(self)`
+> Convenience method for writeback_dirty and readin_modified
+
+### values(...)
+`@staticmethod
+def values(self, start_key: Key)`` -> Generator`
+> Iterates over every value
+
+### writeback(...)
+`@staticmethod
+def writeback(...)`
+<details><summary>Parameters...</summary>
+```python
+    self, topkey: str, only_if_dirty: bool = True,
+    clean: bool = True
+```
+</details>
+> Writes back a top-level key
+
+### writeback_dirty(...)
+`@staticmethod
+def writeback_dirty(self)`
+> <no doc>
+
+# `Util` (`RS.U`)
 
 
-# `Flags` (shorthand: `RS.F`)
+# `Flags` (`RS.F`)
 
 
-# `Config` (shorthand: `RS.C`)
+# `Config` (`RS.C`)
 
 ## bettergetter(...)
 `def bettergetter(key: Key, default: Union = Behavior.RAISE, set_default: bool = True)`` -> Union`
@@ -159,7 +474,7 @@ def key(key: Key, top_level: bool = False)`` -> tuple`
 > <no doc>
 
 
-# `ExceptionHandlers` (shorthand: `RS.EH`)
+# `ExceptionHandlers` (`RS.EH`)
 
 ## hookin()
 `def hookin()`
@@ -182,7 +497,7 @@ def key(key: Key, top_level: bool = False)`` -> tuple`
 > <no doc>
 
 
-# `MCLang` (shorthand: `RS.L`)
+# `MCLang` (`RS.L`)
 
 ## extract_lang()
 `def extract_lang()`` -> dict`
@@ -197,7 +512,7 @@ def key(key: Key, top_level: bool = False)`` -> tuple`
 > <no doc>
 
 
-# `LineParser` (shorthand: `RS.LP`)
+# `LineParser` (`RS.LP`)
 
 ## handle_line(...)
 `def handle_line(line: str)`
@@ -215,7 +530,7 @@ def key(key: Key, top_level: bool = False)`` -> tuple`
 >     The callback should have the signature `callback(user: RS.UserManager.User, message: str, insecure: bool)`
 
 
-# `PluginManager` (shorthand: `RS.PM`)
+# `PluginManager` (`RS.PM`)
 
 ## early_load_plugins()
 `def early_load_plugins()`
@@ -234,7 +549,7 @@ def key(key: Key, top_level: bool = False)`` -> tuple`
 > <no doc>
 
 
-# `ServerManager` (shorthand: `RS.SM`)
+# `ServerManager` (`RS.SM`)
 
 ## preferred_order()
 `@classmethod
@@ -247,14 +562,14 @@ def register(manager_type: Type)`
 > <no doc>
 
 
-# `UserManager` (shorthand: `RS.UM`)
+# `UserManager` (`RS.UM`)
 
 ## close()
 `def close()`
 > <no doc>
 
 
-# `TellRaw` (shorthand: `RS.TR`)
+# `TellRaw` (`RS.TR`)
 
 ## append(...)
 `@staticmethod
@@ -382,7 +697,7 @@ def text(...)`
 >         hover_contents is the data to use for the hover_event (the entity to display, the TellRaw to show [as text])
 
 
-# `ChatCommands` (shorthand: `RS.CC`)
+# `ChatCommands` (`RS.CC`)
 
 ## compose_command(...)
 `def compose_command(cmd: str, args: str | None)`` -> str`
@@ -431,7 +746,7 @@ def text(...)`
 > <no doc>
 
 
-# `Convenience` (shorthand: `RS._`)
+# `Convenience` (`RS._`)
 
 ## command(...)
 `@staticmethod
