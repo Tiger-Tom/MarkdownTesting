@@ -47,8 +47,7 @@ def ensure_python_version`(``)
 # `Config` (shorthand: `RS.C`)
 
 ## bettergetter(...)
-`def bettergetter`(<details><summary>`...`</summary>
-```python
+`def bettergetter`(<details><summary>`...`</summary>```python
     key: Key, default: Union = Behavior.RAISE, set_default: bool = True
 ```
 </details>)` -> Union`
