@@ -2,61 +2,61 @@
 > None
 # `Bootstrapper` (shorthand: `RSBS`)
 
-## access_entrypoint
+## access_entrypoint(...*1)
 ```python
 method access_entrypoint(ep: str) -> types.ModuleType
 ```
 > Loads the entrypoint's surrounding module
 
-## bootstrap
+## bootstrap(...*1)
 ```python
 method bootstrap(close_after: bool = True)
 ```
 > Executes the base manifest, then accesses, assigns, and chainloads the entrypoint
 
-## chainload_entrypoint
+## chainload_entrypoint(...*1)
 ```python
 method chainload_entrypoint(rs: Callable)
 ```
 > Runs the entrypoint's __call__ method
 
-## close
+## close(...*1)
 ```python
 method close(do_exit: bool | int = False)
 ```
 > Executes all shutdown callbacks and closes logging (logging.shutdown()), and exits with exit code do_exit if it isn't False
 
-## ensure_python_version
+## ensure_python_version()
 ```python
 classmethod ensure_python_version()
 ```
 > Ensure that the Python version meets the minimum requirements
 
-## parse_arguments
+## parse_arguments(...*1)
 ```python
 method parse_arguments(args=None)
 ```
 > Generate and ArgumentParser and parse (known) arguments
 
-## register_onclose
+## register_onclose(...*1)
 ```python
 method register_onclose(cb: Callable)
 ```
 > Registers a function to run when self.close() is called
 
-## run_base_manifest
+## run_base_manifest()
 ```python
 method run_base_manifest()
 ```
 > Executes the base manifest (_rsruntime/MANIFEST.ini)
 
-## setup_logger
+## setup_logger()
 ```python
 method setup_logger() -> logging.Logger
 ```
 > Sets up self.logger, as well as logging.INFOPLUS/IRRECOVERABLE and Logger.infop/irrec()
 
-## stage_entrypoint
+## stage_entrypoint(...*1)
 ```python
 method stage_entrypoint(rs_outer: types.ModuleType) -> rs_outer.RunServer
 ```
@@ -65,7 +65,7 @@ method stage_entrypoint(rs_outer: types.ModuleType) -> rs_outer.RunServer
 # `Flags` (shorthand: `RSF`)
 # `Config` (shorthand: `RSC`)
 
-## bettergetter
+## bettergetter(...*3)
 ```python
 method bettergetter(<details><summary>...</summary>
     key: Key, default: Union = Behavior.RAISE, set_default: bool = True
@@ -76,13 +76,13 @@ method bettergetter(<details><summary>...</summary>
 >         if default is Behavior.RAISE: raises KeyError
 >         otherwise: returns default, and if set_default is truthy then sets the key to default
 
-## close
+## close()
 ```python
 method close()
 ```
 > <no doc>
 
-## contains
+## contains(...*2)
 ```python
 method contains(<details><summary>...</summary>
     key: Key, _tree: Optional = None
@@ -90,7 +90,7 @@ method contains(<details><summary>...</summary>
 ```
 > Returns whether or not the key exists
 
-## get
+## get(...*3)
 ```python
 method get(<details><summary>...</summary>
     key: Key, default: Union = Behavior.RAISE, _tree: Optional = None
@@ -99,7 +99,7 @@ method get(<details><summary>...</summary>
 > Gets the value of key
 >     If the key is missing, then raises KeyError if default is Behavior.RAISE, otherwise returns default
 
-## get
+## get(...*3)
 ```python
 method get(<details><summary>...</summary>
     key: Key, default: Union = Behavior.RAISE, _tree: Optional = None
@@ -108,13 +108,13 @@ method get(<details><summary>...</summary>
 > Gets the value of key
 >     If the key is missing, then raises KeyError if default is Behavior.RAISE, otherwise returns default
 
-## is_autosyncing
+## is_autosyncing()
 ```python
 method is_autosyncing() -> bool
 ```
 > Returns whether or not the internal watchdog timer is ticking
 
-## items_full
+## items_full(...*2)
 ```python
 method items_full(<details><summary>...</summary>
     start_key: Key, key_join: bool = True
@@ -122,13 +122,13 @@ method items_full(<details><summary>...</summary>
 ```
 > Iterates over every (key, value) pair, yielding the entire key
 
-## items_short
+## items_short(...*1)
 ```python
 method items_short(start_key: Key)
 ```
 > Iterates over every (key, value) pair, yielding the last part of the key
 
-## key
+## key(...*2)
 ```python
 classmethod key(<details><summary>...</summary>
     key: Key, top_level: bool = False
@@ -136,7 +136,7 @@ classmethod key(<details><summary>...</summary>
 ```
 > Transform a string / tuple of strings into a key
 
-## keys
+## keys(...*2)
 ```python
 method keys(<details><summary>...</summary>
     start_key: Key | None = None, key_join: bool = True
@@ -144,7 +144,7 @@ method keys(<details><summary>...</summary>
 ```
 > Iterates over every key
 
-## mass_set_default
+## mass_set_default(...*3)
 ```python
 method mass_set_default(<details><summary>...</summary>
     pfx: str | None = None, dict_vals: dict[str, Serializable] | None = None, values: Serializable
@@ -160,25 +160,25 @@ method mass_set_default(<details><summary>...</summary>
 > If a total of 0 values are given, an error is logged
 > Otherwise, an info is logged decribing how many keys will be set
 
-## path_from_topkey
+## path_from_topkey(...*1)
 ```python
 method path_from_topkey(topkey: str)
 ```
 > Returns the Path corresponding to the top-key's file
 
-## readin
+## readin(...*1)
 ```python
 method readin(topkey: str)
 ```
 > Reads in a top-level key
 
-## readin_modified
+## readin_modified()
 ```python
 method readin_modified()
 ```
 > Reads in top-level keys that have been changed
 
-## set_default
+## set_default(...*2)
 ```python
 method set_default(<details><summary>...</summary>
     option: str | tuple[str], value: Serializable
@@ -186,7 +186,7 @@ method set_default(<details><summary>...</summary>
 ```
 > Sets an option if it does not exist
 
-## setitem
+## setitem(...*3)
 ```python
 method setitem(<details><summary>...</summary>
     key: Key, val: Serializable, _tree: Optional = None
@@ -194,37 +194,37 @@ method setitem(<details><summary>...</summary>
 ```
 > Sets a key to a value
 
-## sort
+## sort(...*1)
 ```python
 method sort(by: Callable = <lambda>)
 ```
 > Sorts the data of this INIBackedDict in-place, marking all touched sections as dirty
 
-## start_autosync
+## start_autosync()
 ```python
 method start_autosync()
 ```
 > Starts the internal watchdog timer
 
-## stop_autosync
+## stop_autosync()
 ```python
 method stop_autosync()
 ```
 > Stops the internal watchdog timer
 
-## sync
+## sync()
 ```python
 method sync()
 ```
 > Convenience method for writeback_dirty and readin_modified
 
-## values
+## values(...*1)
 ```python
 method values(start_key: Key) -> Generator
 ```
 > Iterates over every value
 
-## writeback
+## writeback(...*3)
 ```python
 method writeback(<details><summary>...</summary>
     topkey: str, only_if_dirty: bool = True, clean: bool = True
@@ -232,51 +232,51 @@ method writeback(<details><summary>...</summary>
 ```
 > Writes back a top-level key
 
-## writeback_dirty
+## writeback_dirty()
 ```python
 method writeback_dirty()
 ```
 > <no doc>
 # `ExceptionHandlers` (shorthand: `RSEH`)
 
-## hookin
+## hookin()
 ```python
 method hookin()
 ```
 > <no doc>
 
-## hookout
+## hookout()
 ```python
 method hookout()
 ```
 > <no doc>
 
-## register_exception_hook
+## register_exception_hook(...*1)
 ```python
 method register_exception_hook(callback: Callable)
 ```
 > <no doc>
 
-## register_thread_exception_hook
+## register_thread_exception_hook(...*1)
 ```python
 method register_thread_exception_hook(callback: Callable)
 ```
 > <no doc>
 
-## register_unraisable_hook
+## register_unraisable_hook(...*1)
 ```python
 method register_unraisable_hook(callback: Callable)
 ```
 > <no doc>
 # `MCLang` (shorthand: `RSL`)
 
-## extract_lang
+## extract_lang()
 ```python
 method extract_lang() -> dict
 ```
 > Extracts the language file from a server JAR file, sets and returns self.lang
 
-## lang_to_pattern
+## lang_to_pattern(...*3)
 ```python
 method lang_to_pattern(<details><summary>...</summary>
     lang: str, group_names: tuple[str, ...] | None = None, prefix_suffix: str = ^{}$
@@ -284,20 +284,20 @@ method lang_to_pattern(<details><summary>...</summary>
 ```
 > <no doc>
 
-## strip_prefix
+## strip_prefix(...*1)
 ```python
 method strip_prefix(line: str) -> tuple
 ```
 > <no doc>
 # `LineParser` (shorthand: `RSLP`)
 
-## handle_line
+## handle_line(...*1)
 ```python
 method handle_line(line: str)
 ```
 > <no doc>
 
-## register_callback
+## register_callback(...*3)
 ```python
 method register_callback(<details><summary>...</summary>
     patt: Pattern, callback: Union, with_prefix: bool = True
@@ -307,7 +307,7 @@ method register_callback(<details><summary>...</summary>
 >     If keep_prefix, then lines that have the prefix are passed. callback should have the signature: `callback(match: re.Match, prefix: re.Match, t: time.struct_time)`
 >     Otherwise, lines that don't have a prefix are passed; the callback should have the signature: `callback(match: re.Match)`
 
-## register_chat_callback
+## register_chat_callback(...*1)
 ```python
 method register_chat_callback(callback: Callable)
 ```
@@ -315,52 +315,52 @@ method register_chat_callback(callback: Callable)
 >     The callback should have the signature `callback(user: RS.UserManager.User, message: str, insecure: bool)`
 # `PluginManager` (shorthand: `RSPM`)
 
-## early_load_plugins
+## early_load_plugins()
 ```python
 method early_load_plugins()
 ```
 > <no doc>
 
-## load_plugins
+## load_plugins()
 ```python
 method load_plugins()
 ```
 > <no doc>
 
-## restart
+## restart()
 ```python
 method restart()
 ```
 > <no doc>
 
-## start
+## start()
 ```python
 method start()
 ```
 > <no doc>
 # `ServerManager` (shorthand: `RSSM`)
 
-## preferred_order
+## preferred_order()
 ```python
 classmethod preferred_order() -> list
 ```
 > <no doc>
 
-## register
+## register(...*1)
 ```python
 classmethod register(manager_type: Type)
 ```
 > <no doc>
 # `UserManager` (shorthand: `RSUM`)
 
-## close
+## close()
 ```python
 method close()
 ```
 > <no doc>
 # `TellRaw` (shorthand: `RSTR`)
 
-## append
+## append(...*2)
 ```python
 staticmethod append(<details><summary>...</summary>
     self, object
@@ -368,19 +368,19 @@ staticmethod append(<details><summary>...</summary>
 ```
 > Append object to the end of the list.
 
-## clear
+## clear(...*1)
 ```python
 staticmethod clear(self)
 ```
 > Remove all items from list.
 
-## copy
+## copy(...*1)
 ```python
 staticmethod copy(self)
 ```
 > Return a shallow copy of the list.
 
-## count
+## count(...*2)
 ```python
 staticmethod count(<details><summary>...</summary>
     self, value
@@ -388,7 +388,7 @@ staticmethod count(<details><summary>...</summary>
 ```
 > Return number of occurrences of value.
 
-## extend
+## extend(...*2)
 ```python
 staticmethod extend(<details><summary>...</summary>
     self, iterable
@@ -396,7 +396,7 @@ staticmethod extend(<details><summary>...</summary>
 ```
 > Extend list by appending elements from the iterable.
 
-## ijoin
+## ijoin(...*2)
 ```python
 staticmethod ijoin(<details><summary>...</summary>
     self, tellraws: tuple
@@ -404,7 +404,7 @@ staticmethod ijoin(<details><summary>...</summary>
 ```
 > <no doc>
 
-## index
+## index(...*4)
 ```python
 staticmethod index(<details><summary>...</summary>
     self, value, start=0,
@@ -415,7 +415,7 @@ staticmethod index(<details><summary>...</summary>
 > 
 > Raises ValueError if the value is not present.
 
-## insert
+## insert(...*3)
 ```python
 staticmethod insert(<details><summary>...</summary>
     self, index, object
@@ -423,7 +423,7 @@ staticmethod insert(<details><summary>...</summary>
 ```
 > Insert object before index.
 
-## itell
+## itell(...*3)
 ```python
 classmethod itell(<details><summary>...</summary>
     user: User, args, kwargs
@@ -431,7 +431,7 @@ classmethod itell(<details><summary>...</summary>
 ```
 > Convenience method for `user.tell(RS.TR().text(*args, **kwargs))`
 
-## join
+## join(...*2)
 ```python
 staticmethod join(<details><summary>...</summary>
     self, tellraws: tuple
@@ -439,7 +439,7 @@ staticmethod join(<details><summary>...</summary>
 ```
 > <no doc>
 
-## line_break
+## line_break(...*2)
 ```python
 staticmethod line_break(<details><summary>...</summary>
     self, count: int = 1
@@ -447,7 +447,7 @@ staticmethod line_break(<details><summary>...</summary>
 ```
 > Append n newlines to self (where n >= 0)
 
-## pop
+## pop(...*2)
 ```python
 staticmethod pop(<details><summary>...</summary>
     self, index=-1
@@ -457,7 +457,7 @@ staticmethod pop(<details><summary>...</summary>
 > 
 > Raises IndexError if list is empty or index is out of range.
 
-## remove
+## remove(...*2)
 ```python
 staticmethod remove(<details><summary>...</summary>
     self, value
@@ -467,19 +467,19 @@ staticmethod remove(<details><summary>...</summary>
 > 
 > Raises ValueError if the value is not present.
 
-## render
+## render(...*1)
 ```python
 staticmethod render(self)
 ```
 > <no doc>
 
-## reverse
+## reverse(...*1)
 ```python
 staticmethod reverse(self)
 ```
 > Reverse *IN PLACE*.
 
-## sort
+## sort(...*3)
 ```python
 staticmethod sort(<details><summary>...</summary>
     self, key=None, reverse=False
@@ -495,7 +495,7 @@ staticmethod sort(<details><summary>...</summary>
 > 
 > The reverse flag can be set to sort in descending order.
 
-## text
+## text(...*11)
 ```python
 staticmethod text(<details><summary>...</summary>
     self, text: str, color: str | None = None,
@@ -519,7 +519,7 @@ staticmethod text(<details><summary>...</summary>
 >         hover_contents is the data to use for the hover_event (the entity to display, the TellRaw to show [as text])
 # `ChatCommands` (shorthand: `RSCC`)
 
-## compose_command
+## compose_command(...*2)
 ```python
 method compose_command(<details><summary>...</summary>
     cmd: str, args: str | None
@@ -527,7 +527,7 @@ method compose_command(<details><summary>...</summary>
 ```
 > Compiles cmd and args together using various configuration to compose a command string
 
-## help
+## help(...*4)
 ```python
 method help(<details><summary>...</summary>
     user: User, on: Union = None, section: None | str = None,
@@ -539,7 +539,7 @@ method help(<details><summary>...</summary>
 >     If on is a command, then shows help on that command
 >     If on is not supplied, then shows a list of top-level sections
 
-## helpcmd_for
+## helpcmd_for(...*2)
 ```python
 method helpcmd_for(<details><summary>...</summary>
     item: str | None = None, for_section: bool = False
@@ -547,7 +547,7 @@ method helpcmd_for(<details><summary>...</summary>
 ```
 > Composes a help command for the item
 
-## parse_command
+## parse_command(...*1)
 ```python
 method parse_command(line: str) -> tuple
 ```
@@ -556,7 +556,7 @@ method parse_command(line: str) -> tuple
 >   - a (False, command, args) tuple if the line matches as a ChatCommand, but the command in question hasn't been registered
 >   - None if the line doesn't match as a ChatCommand
 
-## register
+## register(...*2)
 ```python
 method register(<details><summary>...</summary>
     cmd: ChatCommands.ChatCommand, aliases: set = set()
@@ -564,7 +564,7 @@ method register(<details><summary>...</summary>
 ```
 > <no doc>
 
-## register_func
+## register_func(...*4)
 ```python
 method register_func(<details><summary>...</summary>
     func: Callable, aliases: set = set(), permission: Perm = 80,
@@ -573,7 +573,7 @@ method register_func(<details><summary>...</summary>
 ```
 > <no doc>
 
-## run_command
+## run_command(...*3)
 ```python
 method run_command(<details><summary>...</summary>
     user: User, line: str, not_secure: bool = False
@@ -582,21 +582,21 @@ method run_command(<details><summary>...</summary>
 > <no doc>
 # `Convenience` (shorthand: `RS_`)
 
-## command
+## command(...*1)
 ```python
 staticmethod command(command: str) -> None | typing.Any
 ```
 > Writes a command to the server
 >     Equivelant to RS.SM.write(line)
 
-## inject_line
+## inject_line(...*1)
 ```python
 staticmethod inject_line(line: str)
 ```
 > Injects a line into LineParser, as if it was read from the ServerManager
 >     Equivelant to RS.LP.handle_line(line)
 
-## listen_chat
+## listen_chat(...*1)
 ```python
 staticmethod listen_chat(callback: Callable)
 ```
@@ -606,13 +606,13 @@ staticmethod listen_chat(callback: Callable)
 >     - the line (str)
 >     - if the message was "not secure" (bool)
 
-## say
+## say(...*1)
 ```python
 staticmethod say(text: str)
 ```
 > <no doc>
 
-## tell
+## tell(...*2)
 ```python
 staticmethod tell(<details><summary>...</summary>
     user: _rsruntime.lib.rs_usermgr.UserManager.User | str, text: str
@@ -620,7 +620,7 @@ staticmethod tell(<details><summary>...</summary>
 ```
 > <no doc>
 
-## tellraw
+## tellraw(...*12)
 ```python
 staticmethod tellraw(<details><summary>...</summary>
     name: str, old_name: str | None = None, uuid: str | object | None = None,
