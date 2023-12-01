@@ -1,6 +1,6 @@
 # `RunServer` (imported as `RS`)
 > None
-# `Bootstrapper` (shorthand: `RSBS`)
+# `Bootstrapper` (shorthand: `RS.BS`)
 
 ## access_entrypoint(...*1)
 ```python
@@ -61,9 +61,9 @@ method setup_logger() -> logging.Logger
 method stage_entrypoint(rs_outer: types.ModuleType) -> rs_outer.RunServer
 ```
 > Initializes the entrypoint's class (with self as an argument)
-# `Util` (shorthand: `RSU`)
-# `Flags` (shorthand: `RSF`)
-# `Config` (shorthand: `RSC`)
+# `Util` (shorthand: `RS.U`)
+# `Flags` (shorthand: `RS.F`)
+# `Config` (shorthand: `RS.C`)
 
 ## bettergetter(...*3)
 ```python
@@ -237,7 +237,7 @@ method writeback(<details><summary>...</summary>
 method writeback_dirty()
 ```
 > <no doc>
-# `ExceptionHandlers` (shorthand: `RSEH`)
+# `ExceptionHandlers` (shorthand: `RS.EH`)
 
 ## hookin()
 ```python
@@ -268,7 +268,7 @@ method register_thread_exception_hook(callback: Callable)
 method register_unraisable_hook(callback: Callable)
 ```
 > <no doc>
-# `MCLang` (shorthand: `RSL`)
+# `MCLang` (shorthand: `RS.L`)
 
 ## extract_lang()
 ```python
@@ -289,7 +289,7 @@ method lang_to_pattern(<details><summary>...</summary>
 method strip_prefix(line: str) -> tuple
 ```
 > <no doc>
-# `LineParser` (shorthand: `RSLP`)
+# `LineParser` (shorthand: `RS.LP`)
 
 ## handle_line(...*1)
 ```python
@@ -313,7 +313,7 @@ method register_chat_callback(callback: Callable)
 ```
 > Registers a callback for when chat is recieved
 >     The callback should have the signature `callback(user: RS.UserManager.User, message: str, insecure: bool)`
-# `PluginManager` (shorthand: `RSPM`)
+# `PluginManager` (shorthand: `RS.PM`)
 
 ## early_load_plugins()
 ```python
@@ -338,7 +338,7 @@ method restart()
 method start()
 ```
 > <no doc>
-# `ServerManager` (shorthand: `RSSM`)
+# `ServerManager` (shorthand: `RS.SM`)
 
 ## preferred_order()
 ```python
@@ -351,14 +351,14 @@ classmethod preferred_order() -> list
 classmethod register(manager_type: Type)
 ```
 > <no doc>
-# `UserManager` (shorthand: `RSUM`)
+# `UserManager` (shorthand: `RS.UM`)
 
 ## close()
 ```python
 method close()
 ```
 > <no doc>
-# `TellRaw` (shorthand: `RSTR`)
+# `TellRaw` (shorthand: `RS.TR`)
 
 ## append(...*2)
 ```python
@@ -517,7 +517,7 @@ staticmethod text(<details><summary>...</summary>
 >         click_contents is the text to use for the click_event (the URL to open, text to copy, etc.)
 >     hover_event is either a HoverEvent or None for nothing
 >         hover_contents is the data to use for the hover_event (the entity to display, the TellRaw to show [as text])
-# `ChatCommands` (shorthand: `RSCC`)
+# `ChatCommands` (shorthand: `RS.CC`)
 
 ## compose_command(...*2)
 ```python
@@ -580,7 +580,7 @@ method run_command(<details><summary>...</summary>
 </details>)
 ```
 > <no doc>
-# `Convenience` (shorthand: `RS_`)
+# `Convenience` (shorthand: `RS._`)
 
 ## command(...*1)
 ```python
