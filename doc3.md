@@ -25,6 +25,7 @@ def access_entrypoint(self, ep: str) -> types.ModuleType:
     return fl.load_module()
 ```
 </details>
+
 [`_rsruntime/rs_BOOTSTRAP.py@209:213`](/_rsruntime/rs_BOOTSTRAP.py#L209)
 > Loads the entrypoint's surrounding module
 
@@ -52,6 +53,7 @@ def bootstrap(self, close_after: bool = True):
     if close_after: self.close()
 ```
 </details>
+
 [`_rsruntime/rs_BOOTSTRAP.py@182:195`](/_rsruntime/rs_BOOTSTRAP.py#L182)
 > Executes the base manifest, then accesses, assigns, and chainloads the entrypoint
 
@@ -70,6 +72,7 @@ def chainload_entrypoint(self, rs: typing.Callable):
     self.logger.fatal('EXITED ENTRYPOINT')
 ```
 </details>
+
 [`_rsruntime/rs_BOOTSTRAP.py@218:222`](/_rsruntime/rs_BOOTSTRAP.py#L218)
 > Runs the entrypoint's __call__ method
 
@@ -92,6 +95,7 @@ def close(self, do_exit: bool | int = False):
     else: exit(do_exit)
 ```
 </details>
+
 [`_rsruntime/rs_BOOTSTRAP.py@226:234`](/_rsruntime/rs_BOOTSTRAP.py#L226)
 > Executes all shutdown callbacks and closes logging (logging.shutdown()), and exits with exit code do_exit if it isn't False
 
@@ -111,6 +115,7 @@ def ensure_python_version(cls):
         raise NotImplementedError(f'Python version {".".join(map(str, sys.version_info[:3]))} doesn\'t meet the minimum requirements, needs {".".join(map(str, cls.minimum_vers))}')
 ```
 </details>
+
 [`_rsruntime/rs_BOOTSTRAP.py@69:73`](/_rsruntime/rs_BOOTSTRAP.py#L69)
 > Ensure that the Python version meets the minimum requirements
 
@@ -134,6 +139,7 @@ def register_onclose(self, cb: typing.Callable[[], None]):
     self.shutdown_callbacks.add(cb)
 ```
 </details>
+
 [`_rsruntime/rs_BOOTSTRAP.py@235:237`](/_rsruntime/rs_BOOTSTRAP.py#L235)
 > Registers a function to run when self.close() is called
 
@@ -158,6 +164,7 @@ def run_base_manifest(self):
     self.base_manifest = Manifest.from_file(mp)()
 ```
 </details>
+
 [`_rsruntime/rs_BOOTSTRAP.py@197:207`](/_rsruntime/rs_BOOTSTRAP.py#L197)
 > Executes the base manifest (_rsruntime/MANIFEST.ini)
 
@@ -182,6 +189,7 @@ def stage_entrypoint(self, rs_outer: types.ModuleType) -> 'rs_outer.RunServer':
     return rs_outer.RunServer(self)
 ```
 </details>
+
 [`_rsruntime/rs_BOOTSTRAP.py@214:217`](/_rsruntime/rs_BOOTSTRAP.py#L214)
 > Initializes the entrypoint's class (with self as an argument)
 
@@ -217,6 +225,7 @@ def formats(self, obj, joiner: str = '') -> str:
     return joiner.join(self.format(obj))
 ```
 </details>
+
 [`_rsruntime/util/betterprettyprinter.py@68:69`](/_rsruntime/util/betterprettyprinter.py#L68)
 > <no doc>
 
@@ -229,7 +238,7 @@ def writes(...)
 <summary>Parameters...</summary>
 
 ```python
-    self, obj, fp=<idlelib.run.StdOutputFile object at 0x7fa77f0e1690>,
+    self, obj, fp=<idlelib.run.StdOutputFile object at 0x7fef0efff0a0>,
     end: str = '\n', delay: float | None = None, collect: list | Callable(str) | None = None
 ```
 </details>
@@ -248,6 +257,7 @@ def writes(self, obj, fp=sys.stdout, end: str = '\n', delay: float | None = None
     return collect
 ```
 </details>
+
 [`_rsruntime/util/betterprettyprinter.py@70:78`](/_rsruntime/util/betterprettyprinter.py#L70)
 > <no doc>
 
@@ -276,6 +286,7 @@ def register(self, hook: HookType, callback: FuncType):
     self.hooks[hook].add(callback)
 ```
 </details>
+
 [`_rsruntime/util/hooks.py@22:25`](/_rsruntime/util/hooks.py#L22)
 > Adds a callback to be called by __call__(hook)
 
@@ -294,6 +305,7 @@ def unregister(self, hook: HookType, callback: FuncType):
     self.hooks[hook].remove(callback)
 ```
 </details>
+
 [`_rsruntime/util/hooks.py@26:29`](/_rsruntime/util/hooks.py#L26)
 > Removes a callback that would be called by __call__(hook) (if it exists)
 
@@ -312,6 +324,7 @@ def unregister_hook(self, hook: HookType):
     del self.hooks[hook]
 ```
 </details>
+
 [`_rsruntime/util/hooks.py@30:33`](/_rsruntime/util/hooks.py#L30)
 > Deletes all callbacks that would be called by __call__(hook)
 
@@ -358,6 +371,7 @@ def bettergetter(self, key: Key, default: typing.ForwardRef('FileBackedDict.Beha
     return default
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@137:153`](/_rsruntime/util/fbd.py#L137)
 > Gets the value of key
 > If the key is missing, then:
@@ -382,6 +396,7 @@ def contains(self, key: Key, *, _tree: MutableMapping | None = None) -> bool:
     return True
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@188:194`](/_rsruntime/util/fbd.py#L188)
 > Returns whether or not the key exists
 
@@ -420,6 +435,7 @@ def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAIS
     return self._deserialize(sect[key[-1]])
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@160:175`](/_rsruntime/util/fbd.py#L160)
 > Gets the value of key
 > If the key is missing, then raises KeyError if default is Behavior.RAISE, otherwise returns default
@@ -459,6 +475,7 @@ def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAIS
     return self._deserialize(sect[key[-1]])
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@160:175`](/_rsruntime/util/fbd.py#L160)
 > Gets the value of key
 > If the key is missing, then raises KeyError if default is Behavior.RAISE, otherwise returns default
@@ -478,6 +495,7 @@ def is_autosyncing(self) -> bool:
     return self.watchdog.is_alive()
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@97:100`](/_rsruntime/util/fbd.py#L97)
 > Returns whether or not the internal watchdog timer is ticking
 
@@ -496,6 +514,7 @@ def items_full(self, start_key: Key, key_join: bool = True) -> typing.Generator[
     yield from ((k, self[k]) for k in self.keys(start_key, key_join))
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@197:200`](/_rsruntime/util/fbd.py#L197)
 > Iterates over every (key, value) pair, yielding the entire key
 
@@ -514,6 +533,7 @@ def items_short(self, start_key: Key):
     yield from ((k[-1], self[k]) for k in self.keys(start_key, False))
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@201:204`](/_rsruntime/util/fbd.py#L201)
 > Iterates over every (key, value) pair, yielding the last part of the key
 
@@ -542,6 +562,7 @@ def key(cls, key: Key, *, top_level: bool = False) -> tuple[str, ...]: # key key
     return tuple(key)
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@65:78`](/_rsruntime/util/fbd.py#L65)
 > Transform a string / tuple of strings into a key
 
@@ -566,6 +587,7 @@ def keys(self, start_key: Key | None = None, key_join: bool = True) -> typing.Ge
     yield from map((lambda k: self.key_sep.join(skey+(k,))) if key_join else (lambda k: skey+(k,)), target.keys())
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@205:214`](/_rsruntime/util/fbd.py#L205)
 > Iterates over every key
 
@@ -583,6 +605,7 @@ def path_from_topkey(self, topkey: str):
     return (self.path / topkey).with_suffix(self.file_suffix)
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@79:81`](/_rsruntime/util/fbd.py#L79)
 > Returns the Path corresponding to the top-key's file
 
@@ -603,6 +626,7 @@ def readin(self, topkey: str):
     self.mtimes[topkey] = path.stat().st_mtime
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@127:132`](/_rsruntime/util/fbd.py#L127)
 > Reads in a top-level key
 
@@ -628,6 +652,7 @@ def readin_modified(self):
         self._from_string(tk, p.read_text())
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@116:126`](/_rsruntime/util/fbd.py#L116)
 > Reads in top-level keys that have been changed
 
@@ -658,6 +683,7 @@ def setitem(self, key: Key, val: Serializable, *, _tree: MutableMapping | None =
     self.dirty.add(key[0])
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@178:185`](/_rsruntime/util/fbd.py#L178)
 > Sets a key to a value
 
@@ -679,6 +705,7 @@ def sort(self, by: typing.Callable[[str | tuple[str, ...]], typing.Any] = lambda
             cfg._sections[sname] = dict(sorted(ssect.items(), key=lambda it: by(tuple(it[0].split('.')))))
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@277:283`](/_rsruntime/util/fbd.py#L277)
 > Sorts the data of this INIBackedDict in-place, marking all touched sections as dirty
 
@@ -697,6 +724,7 @@ def start_autosync(self):
     self.watchdog.start()
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@89:92`](/_rsruntime/util/fbd.py#L89)
 > Starts the internal watchdog timer
 
@@ -715,6 +743,7 @@ def stop_autosync(self):
     self.watchdog.stop()
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@93:96`](/_rsruntime/util/fbd.py#L93)
 > Stops the internal watchdog timer
 
@@ -734,6 +763,7 @@ def sync(self):
     self.readin_modified()
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@83:87`](/_rsruntime/util/fbd.py#L83)
 > Convenience method for writeback_dirty and readin_modified
 
@@ -752,6 +782,7 @@ def values(self, start_key: Key) -> typing.Generator[[Deserialized], None, None]
     yield from map(self.getitem, self.keys(start_key))
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@216:219`](/_rsruntime/util/fbd.py#L216)
 > Iterates over every value
 
@@ -781,6 +812,7 @@ def writeback(self, topkey: str, *, only_if_dirty: bool = True, clean: bool = Tr
     self.path_from_topkey(topkey).write_text(self._to_string(topkey))
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@106:112`](/_rsruntime/util/fbd.py#L106)
 > Writes back a top-level key
 
@@ -799,6 +831,7 @@ def writeback_dirty(self):
         self.writeback(self.dirty.pop(), only_if_dirty=False, clean=False)
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@102:105`](/_rsruntime/util/fbd.py#L102)
 > <no doc>
 
@@ -845,6 +878,7 @@ def bettergetter(self, key: Key, default: typing.ForwardRef('FileBackedDict.Beha
     return default
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@137:153`](/_rsruntime/util/fbd.py#L137)
 > Gets the value of key
 > If the key is missing, then:
@@ -869,6 +903,7 @@ def contains(self, key: Key, *, _tree: MutableMapping | None = None) -> bool:
     return True
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@188:194`](/_rsruntime/util/fbd.py#L188)
 > Returns whether or not the key exists
 
@@ -907,6 +942,7 @@ def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAIS
     return self._deserialize(sect[key[-1]])
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@160:175`](/_rsruntime/util/fbd.py#L160)
 > Gets the value of key
 > If the key is missing, then raises KeyError if default is Behavior.RAISE, otherwise returns default
@@ -946,6 +982,7 @@ def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAIS
     return self._deserialize(sect[key[-1]])
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@160:175`](/_rsruntime/util/fbd.py#L160)
 > Gets the value of key
 > If the key is missing, then raises KeyError if default is Behavior.RAISE, otherwise returns default
@@ -965,6 +1002,7 @@ def is_autosyncing(self) -> bool:
     return self.watchdog.is_alive()
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@97:100`](/_rsruntime/util/fbd.py#L97)
 > Returns whether or not the internal watchdog timer is ticking
 
@@ -983,6 +1021,7 @@ def items_full(self, start_key: Key, key_join: bool = True) -> typing.Generator[
     yield from ((k, self[k]) for k in self.keys(start_key, key_join))
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@197:200`](/_rsruntime/util/fbd.py#L197)
 > Iterates over every (key, value) pair, yielding the entire key
 
@@ -1001,6 +1040,7 @@ def items_short(self, start_key: Key):
     yield from ((k[-1], self[k]) for k in self.keys(start_key, False))
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@201:204`](/_rsruntime/util/fbd.py#L201)
 > Iterates over every (key, value) pair, yielding the last part of the key
 
@@ -1029,6 +1069,7 @@ def key(cls, key: Key, *, top_level: bool = False) -> tuple[str, ...]: # key key
     return tuple(key)
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@65:78`](/_rsruntime/util/fbd.py#L65)
 > Transform a string / tuple of strings into a key
 
@@ -1053,6 +1094,7 @@ def keys(self, start_key: Key | None = None, key_join: bool = True) -> typing.Ge
     yield from map((lambda k: self.key_sep.join(skey+(k,))) if key_join else (lambda k: skey+(k,)), target.keys())
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@205:214`](/_rsruntime/util/fbd.py#L205)
 > Iterates over every key
 
@@ -1070,6 +1112,7 @@ def path_from_topkey(self, topkey: str):
     return (self.path / topkey).with_suffix(self.file_suffix)
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@79:81`](/_rsruntime/util/fbd.py#L79)
 > Returns the Path corresponding to the top-key's file
 
@@ -1090,6 +1133,7 @@ def readin(self, topkey: str):
     self.mtimes[topkey] = path.stat().st_mtime
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@127:132`](/_rsruntime/util/fbd.py#L127)
 > Reads in a top-level key
 
@@ -1115,6 +1159,7 @@ def readin_modified(self):
         self._from_string(tk, p.read_text())
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@116:126`](/_rsruntime/util/fbd.py#L116)
 > Reads in top-level keys that have been changed
 
@@ -1145,6 +1190,7 @@ def setitem(self, key: Key, val: Serializable, *, _tree: MutableMapping | None =
     self.dirty.add(key[0])
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@178:185`](/_rsruntime/util/fbd.py#L178)
 > Sets a key to a value
 
@@ -1164,6 +1210,7 @@ def sort(self, by: typing.Callable[[tuple[str, ...]], typing.Any] = lambda k: k)
         self._data[top] = self._sorteddict(dat, (top,), by)
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@374:378`](/_rsruntime/util/fbd.py#L374)
 > Sorts the data of this JSONBackedDict (semi-)in-place, marking all touched sections as dirty
 
@@ -1182,6 +1229,7 @@ def start_autosync(self):
     self.watchdog.start()
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@89:92`](/_rsruntime/util/fbd.py#L89)
 > Starts the internal watchdog timer
 
@@ -1200,6 +1248,7 @@ def stop_autosync(self):
     self.watchdog.stop()
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@93:96`](/_rsruntime/util/fbd.py#L93)
 > Stops the internal watchdog timer
 
@@ -1219,6 +1268,7 @@ def sync(self):
     self.readin_modified()
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@83:87`](/_rsruntime/util/fbd.py#L83)
 > Convenience method for writeback_dirty and readin_modified
 
@@ -1237,6 +1287,7 @@ def values(self, start_key: Key) -> typing.Generator[[Deserialized], None, None]
     yield from map(self.getitem, self.keys(start_key))
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@216:219`](/_rsruntime/util/fbd.py#L216)
 > Iterates over every value
 
@@ -1266,6 +1317,7 @@ def writeback(self, topkey: str, *, only_if_dirty: bool = True, clean: bool = Tr
     self.path_from_topkey(topkey).write_text(self._to_string(topkey))
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@106:112`](/_rsruntime/util/fbd.py#L106)
 > Writes back a top-level key
 
@@ -1284,6 +1336,7 @@ def writeback_dirty(self):
         self.writeback(self.dirty.pop(), only_if_dirty=False, clean=False)
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@102:105`](/_rsruntime/util/fbd.py#L102)
 > <no doc>
 
@@ -1343,6 +1396,7 @@ def locked(func: typing.Callable):
     return locked_func
 ```
 </details>
+
 [`_rsruntime/util/locked_resource.py@76:92`](/_rsruntime/util/locked_resource.py#L76)
 > Waits to acquire the method's self's .lock attribute (uses "with")
 > This should be used in tandem with the LockedResource superclass:
@@ -1382,6 +1436,7 @@ def locked(func: typing.Callable):
     return locked_func
 ```
 </details>
+
 [`_rsruntime/util/locked_resource.py@76:92`](/_rsruntime/util/locked_resource.py#L76)
 > Waits to acquire the method's self's .lock attribute (uses "with")
 > This should be used in tandem with the LockedResource superclass:
@@ -1428,6 +1483,7 @@ def locked(func: typing.Callable):
     return locked_func
 ```
 </details>
+
 [`_rsruntime/util/locked_resource.py@76:92`](/_rsruntime/util/locked_resource.py#L76)
 > Waits to acquire the method's self's .lock attribute (uses "with")
 > This should be used in tandem with the LockedResource superclass:
@@ -1467,6 +1523,7 @@ def locked(func: typing.Callable):
     return locked_func
 ```
 </details>
+
 [`_rsruntime/util/locked_resource.py@76:92`](/_rsruntime/util/locked_resource.py#L76)
 > Waits to acquire the method's self's .lock attribute (uses "with")
 > This should be used in tandem with the LockedResource superclass:
@@ -1587,6 +1644,7 @@ def iclasslocked(func: typing.Callable):
     return classmethod(classlocked(func))
 ```
 </details>
+
 [`_rsruntime/util/locked_resource.py@113:123`](/_rsruntime/util/locked_resource.py#L113)
 > Is the same as @classlocked (it even calls it), but also wraps the method in classmethod
 > Meant to be used with @LockedClass:
@@ -1618,6 +1676,7 @@ def iclasslocked(func: typing.Callable):
     return classmethod(classlocked(func))
 ```
 </details>
+
 [`_rsruntime/util/locked_resource.py@113:123`](/_rsruntime/util/locked_resource.py#L113)
 > Is the same as @classlocked (it even calls it), but also wraps the method in classmethod
 > Meant to be used with @LockedClass:
@@ -1702,6 +1761,7 @@ def locked_by(lock: AbstractContextManager):
     return func_locker
 ```
 </details>
+
 [`_rsruntime/util/locked_resource.py@125:132`](/_rsruntime/util/locked_resource.py#L125)
 > <no doc>
 
@@ -1724,6 +1784,7 @@ def locked_by(lock: AbstractContextManager):
     return func_locker
 ```
 </details>
+
 [`_rsruntime/util/locked_resource.py@125:132`](/_rsruntime/util/locked_resource.py#L125)
 > <no doc>
 
@@ -1794,6 +1855,7 @@ def iclasslocked(func: typing.Callable):
     return classmethod(classlocked(func))
 ```
 </details>
+
 [`_rsruntime/util/locked_resource.py@113:123`](/_rsruntime/util/locked_resource.py#L113)
 > Is the same as @classlocked (it even calls it), but also wraps the method in classmethod
 > Meant to be used with @LockedClass:
@@ -1825,6 +1887,7 @@ def iclasslocked(func: typing.Callable):
     return classmethod(classlocked(func))
 ```
 </details>
+
 [`_rsruntime/util/locked_resource.py@113:123`](/_rsruntime/util/locked_resource.py#L113)
 > Is the same as @classlocked (it even calls it), but also wraps the method in classmethod
 > Meant to be used with @LockedClass:
@@ -1862,6 +1925,7 @@ def locked(func: typing.Callable):
     return locked_func
 ```
 </details>
+
 [`_rsruntime/util/locked_resource.py@76:92`](/_rsruntime/util/locked_resource.py#L76)
 > Waits to acquire the method's self's .lock attribute (uses "with")
 > This should be used in tandem with the LockedResource superclass:
@@ -1901,6 +1965,7 @@ def locked(func: typing.Callable):
     return locked_func
 ```
 </details>
+
 [`_rsruntime/util/locked_resource.py@76:92`](/_rsruntime/util/locked_resource.py#L76)
 > Waits to acquire the method's self's .lock attribute (uses "with")
 > This should be used in tandem with the LockedResource superclass:
@@ -1931,6 +1996,7 @@ def locked_by(lock: AbstractContextManager):
     return func_locker
 ```
 </details>
+
 [`_rsruntime/util/locked_resource.py@125:132`](/_rsruntime/util/locked_resource.py#L125)
 > <no doc>
 
@@ -1953,6 +2019,7 @@ def locked_by(lock: AbstractContextManager):
     return func_locker
 ```
 </details>
+
 [`_rsruntime/util/locked_resource.py@125:132`](/_rsruntime/util/locked_resource.py#L125)
 > <no doc>
 
@@ -2017,6 +2084,7 @@ def clear(timer: BaseTimer) -> BaseTimer:
     return timer.stop()
 ```
 </details>
+
 [`_rsruntime/util/timer.py@84:86`](/_rsruntime/util/timer.py#L84)
 > <no doc>
 
@@ -2043,6 +2111,7 @@ def set_timer(timer_type: type['Timer.BaseTimer'], func: typing.Callable, secs: 
     return timer_type(func, secs)
 ```
 </details>
+
 [`_rsruntime/util/timer.py@80:83`](/_rsruntime/util/timer.py#L80)
 > <no doc>
 
@@ -2086,6 +2155,7 @@ def bettergetter(self, key: Key, default: typing.ForwardRef('FileBackedDict.Beha
     return default
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@137:153`](/_rsruntime/util/fbd.py#L137)
 > Gets the value of key
 > If the key is missing, then:
@@ -2106,6 +2176,7 @@ def close(self):
     self.sync()
 ```
 </details>
+
 [`_rsruntime/lib/rs_config.py@65:68`](/_rsruntime/lib/rs_config.py#L65)
 > <no doc>
 
@@ -2126,6 +2197,7 @@ def contains(self, key: Key, *, _tree: MutableMapping | None = None) -> bool:
     return True
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@188:194`](/_rsruntime/util/fbd.py#L188)
 > Returns whether or not the key exists
 
@@ -2155,6 +2227,7 @@ def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAIS
     return self._deserialize(sect[key[-1]])
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@160:175`](/_rsruntime/util/fbd.py#L160)
 > Gets the value of key
 > If the key is missing, then raises KeyError if default is Behavior.RAISE, otherwise returns default
@@ -2185,6 +2258,7 @@ def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAIS
     return self._deserialize(sect[key[-1]])
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@160:175`](/_rsruntime/util/fbd.py#L160)
 > Gets the value of key
 > If the key is missing, then raises KeyError if default is Behavior.RAISE, otherwise returns default
@@ -2203,6 +2277,7 @@ def is_autosyncing(self) -> bool:
     return self.watchdog.is_alive()
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@97:100`](/_rsruntime/util/fbd.py#L97)
 > Returns whether or not the internal watchdog timer is ticking
 
@@ -2220,6 +2295,7 @@ def items_full(self, start_key: Key, key_join: bool = True) -> typing.Generator[
     yield from ((k, self[k]) for k in self.keys(start_key, key_join))
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@197:200`](/_rsruntime/util/fbd.py#L197)
 > Iterates over every (key, value) pair, yielding the entire key
 
@@ -2237,6 +2313,7 @@ def items_short(self, start_key: Key):
     yield from ((k[-1], self[k]) for k in self.keys(start_key, False))
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@201:204`](/_rsruntime/util/fbd.py#L201)
 > Iterates over every (key, value) pair, yielding the last part of the key
 
@@ -2265,6 +2342,7 @@ def key(cls, key: Key, *, top_level: bool = False) -> tuple[str, ...]: # key key
     return tuple(key)
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@65:78`](/_rsruntime/util/fbd.py#L65)
 > Transform a string / tuple of strings into a key
 
@@ -2288,6 +2366,7 @@ def keys(self, start_key: Key | None = None, key_join: bool = True) -> typing.Ge
     yield from map((lambda k: self.key_sep.join(skey+(k,))) if key_join else (lambda k: skey+(k,)), target.keys())
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@205:214`](/_rsruntime/util/fbd.py#L205)
 > Iterates over every key
 
@@ -2319,6 +2398,7 @@ def path_from_topkey(self, topkey: str):
     return (self.path / topkey).with_suffix(self.file_suffix)
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@79:81`](/_rsruntime/util/fbd.py#L79)
 > Returns the Path corresponding to the top-key's file
 
@@ -2338,6 +2418,7 @@ def readin(self, topkey: str):
     self.mtimes[topkey] = path.stat().st_mtime
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@127:132`](/_rsruntime/util/fbd.py#L127)
 > Reads in a top-level key
 
@@ -2362,6 +2443,7 @@ def readin_modified(self):
         self._from_string(tk, p.read_text())
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@116:126`](/_rsruntime/util/fbd.py#L116)
 > Reads in top-level keys that have been changed
 
@@ -2379,6 +2461,7 @@ def set_default(self, option: str | tuple[str], value: INIBackedDict.__bases__[0
         self[option] = value
 ```
 </details>
+
 [`_rsruntime/lib/rs_config.py@24:27`](/_rsruntime/lib/rs_config.py#L24)
 > Sets an option if it does not exist
 
@@ -2400,6 +2483,7 @@ def setitem(self, key: Key, val: Serializable, *, _tree: MutableMapping | None =
     self.dirty.add(key[0])
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@178:185`](/_rsruntime/util/fbd.py#L178)
 > Sets a key to a value
 
@@ -2420,6 +2504,7 @@ def sort(self, by: typing.Callable[[str | tuple[str, ...]], typing.Any] = lambda
             cfg._sections[sname] = dict(sorted(ssect.items(), key=lambda it: by(tuple(it[0].split('.')))))
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@277:283`](/_rsruntime/util/fbd.py#L277)
 > Sorts the data of this INIBackedDict in-place, marking all touched sections as dirty
 
@@ -2437,6 +2522,7 @@ def start_autosync(self):
     self.watchdog.start()
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@89:92`](/_rsruntime/util/fbd.py#L89)
 > Starts the internal watchdog timer
 
@@ -2454,6 +2540,7 @@ def stop_autosync(self):
     self.watchdog.stop()
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@93:96`](/_rsruntime/util/fbd.py#L93)
 > Stops the internal watchdog timer
 
@@ -2472,6 +2559,7 @@ def sync(self):
     self.readin_modified()
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@83:87`](/_rsruntime/util/fbd.py#L83)
 > Convenience method for writeback_dirty and readin_modified
 
@@ -2489,6 +2577,7 @@ def values(self, start_key: Key) -> typing.Generator[[Deserialized], None, None]
     yield from map(self.getitem, self.keys(start_key))
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@216:219`](/_rsruntime/util/fbd.py#L216)
 > Iterates over every value
 
@@ -2509,6 +2598,7 @@ def writeback(self, topkey: str, *, only_if_dirty: bool = True, clean: bool = Tr
     self.path_from_topkey(topkey).write_text(self._to_string(topkey))
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@106:112`](/_rsruntime/util/fbd.py#L106)
 > Writes back a top-level key
 
@@ -2526,6 +2616,7 @@ def writeback_dirty(self):
         self.writeback(self.dirty.pop(), only_if_dirty=False, clean=False)
 ```
 </details>
+
 [`_rsruntime/util/fbd.py@102:105`](/_rsruntime/util/fbd.py#L102)
 > <no doc>
 
@@ -2548,6 +2639,7 @@ def hookin(self):
     self._hookin_hooktype(threading, 'excepthook')
 ```
 </details>
+
 [`_rsruntime/lib/rs_exceptionhandlers.py@38:41`](/_rsruntime/lib/rs_exceptionhandlers.py#L38)
 > <no doc>
 
@@ -2565,6 +2657,7 @@ def hookout(self):
     self._hookout_hooktype(threading, 'excepthook')
 ```
 </details>
+
 [`_rsruntime/lib/rs_exceptionhandlers.py@46:49`](/_rsruntime/lib/rs_exceptionhandlers.py#L46)
 > <no doc>
 
@@ -2580,6 +2673,7 @@ def register_exception_hook(self, callback: typing.Callable[[typing.Type[BaseExc
     self.exceptionhooks.register(callback)
 ```
 </details>
+
 [`_rsruntime/lib/rs_exceptionhandlers.py@54:55`](/_rsruntime/lib/rs_exceptionhandlers.py#L54)
 > <no doc>
 
@@ -2595,6 +2689,7 @@ def register_thread_exception_hook(self, callback: typing.Callable[[threading.Ex
     self.threadexceptionhooks.register(callback)
 ```
 </details>
+
 [`_rsruntime/lib/rs_exceptionhandlers.py@58:59`](/_rsruntime/lib/rs_exceptionhandlers.py#L58)
 > <no doc>
 
@@ -2610,6 +2705,7 @@ def register_unraisable_hook(self, callback: typing.Callable[['UnraisableHookArg
     self.unraisablehook.register(callback)
 ```
 </details>
+
 [`_rsruntime/lib/rs_exceptionhandlers.py@56:57`](/_rsruntime/lib/rs_exceptionhandlers.py#L56)
 > <no doc>
 
@@ -2647,6 +2743,7 @@ def strip_prefix(self, line: str) -> tuple[tuple[re.Match, time.struct_time] | N
     return (None, line)
 ```
 </details>
+
 [`_rsruntime/lib/rs_lineparser.py@35:39`](/_rsruntime/lib/rs_lineparser.py#L35)
 > <no doc>
 
@@ -2671,6 +2768,7 @@ def handle_line(self, line: str):
         self.hooks_chat(RS.UserManager[m.group('username')], m.group('message'), bool(m.group('not_secure')))
 ```
 </details>
+
 [`_rsruntime/lib/rs_lineparser.py@120:125`](/_rsruntime/lib/rs_lineparser.py#L120)
 > <no doc>
 
@@ -2691,6 +2789,7 @@ def register_callback(self, patt: re.Pattern, callback: typing.Callable[[re.Matc
     (self.hooks_prefix if with_prefix else self.hooks_no_prefix).register(patt, callback)
 ```
 </details>
+
 [`_rsruntime/lib/rs_lineparser.py@107:113`](/_rsruntime/lib/rs_lineparser.py#L107)
 > Registers a callback
 > If keep_prefix, then lines that have the prefix are passed. callback should have the signature: `callback(match: re.Match, prefix: re.Match, t: time.struct_time)`
@@ -2712,6 +2811,7 @@ def register_chat_callback(self, callback: typing.Callable[[typing.ForwardRef('R
     self.hooks_chat.register(callback)
 ```
 </details>
+
 [`_rsruntime/lib/rs_lineparser.py@114:119`](/_rsruntime/lib/rs_lineparser.py#L114)
 > Registers a callback for when chat is recieved
 > The callback should have the signature `callback(user: RS.UserManager.User, message: str, insecure: bool)`
@@ -2740,6 +2840,7 @@ def early_load_plugins(self):
         self.logger.infop(f'Executing early load on {p} (T+{pc})')
 ```
 </details>
+
 [`_rsruntime/lib/rs_plugins.py@171:179`](/_rsruntime/lib/rs_plugins.py#L171)
 > <no doc>
 
@@ -2756,6 +2857,7 @@ def load_plugins(self):
     self._traverse_plugins(sorted(set(bp.glob(Config['plugins/glob/basic'])) | set(bp.glob(Config['plugins/glob/standalone']))), PerfCounter(sec='', secs=''))
 ```
 </details>
+
 [`_rsruntime/lib/rs_plugins.py@181:183`](/_rsruntime/lib/rs_plugins.py#L181)
 > <no doc>
 
@@ -2771,6 +2873,7 @@ def restart(self):
     self._pmagic('restart', 'Restarting plugin {plug_name}')
 ```
 </details>
+
 [`_rsruntime/lib/rs_plugins.py@212:213`](/_rsruntime/lib/rs_plugins.py#L212)
 > <no doc>
 
@@ -2786,6 +2889,7 @@ def start(self):
     self._pmagic('start', 'Starting plugin {plug_name}')
 ```
 </details>
+
 [`_rsruntime/lib/rs_plugins.py@210:211`](/_rsruntime/lib/rs_plugins.py#L210)
 > <no doc>
 
@@ -2808,6 +2912,7 @@ def preferred_order(cls) -> list[typing.Type[BaseServerManager]]:
     return sorted(cls.managers.__dict__.values(), key=lambda t: t.real_bias, reverse=True)
 ```
 </details>
+
 [`_rsruntime/lib/rs_servmgr.py@199:201`](/_rsruntime/lib/rs_servmgr.py#L199)
 > <no doc>
 
@@ -2825,6 +2930,7 @@ def register(cls, manager_type: typing.Type[BaseServerManager]):
     setattr(cls.managers, manager_type.name.replace('.', '_'), manager_type)
 ```
 </details>
+
 [`_rsruntime/lib/rs_servmgr.py@196:198`](/_rsruntime/lib/rs_servmgr.py#L196)
 > <no doc>
 
@@ -2846,6 +2952,7 @@ def close(self):
     self.fbd.sync()
 ```
 </details>
+
 [`_rsruntime/lib/rs_usermgr.py@168:170`](/_rsruntime/lib/rs_usermgr.py#L168)
 > <no doc>
 
@@ -2873,6 +2980,7 @@ def ijoin(self, tellraws: tuple[typing.Self | str | dict]) -> typing.Generator[[
             yield self
 ```
 </details>
+
 [`_rsruntime/lib/rs_userio.py@105:109`](/_rsruntime/lib/rs_userio.py#L105)
 > <no doc>
 
@@ -2891,6 +2999,7 @@ def itell(cls, user: UserManager.User, *args, **kwargs):
     user.tell(cls().text(*args, **kwargs))
 ```
 </details>
+
 [`_rsruntime/lib/rs_userio.py@114:117`](/_rsruntime/lib/rs_userio.py#L114)
 > Convenience method for `user.tell(RS.TR().text(*args, **kwargs))`
 
@@ -2907,6 +3016,7 @@ def join(self, tellraws: tuple[typing.Self | str | dict]) -> typing.Self:
     return self.__class__(self.ijoin(tellraws))
 ```
 </details>
+
 [`_rsruntime/lib/rs_userio.py@110:111`](/_rsruntime/lib/rs_userio.py#L110)
 > <no doc>
 
@@ -2926,6 +3036,7 @@ def line_break(self, count: int = 1):
     return self
 ```
 </details>
+
 [`_rsruntime/lib/rs_userio.py@99:103`](/_rsruntime/lib/rs_userio.py#L99)
 > Append n newlines to self (where n >= 0)
 
@@ -2942,6 +3053,7 @@ def render(self):
     return json.dumps(self)
 ```
 </details>
+
 [`_rsruntime/lib/rs_userio.py@37:38`](/_rsruntime/lib/rs_userio.py#L37)
 > <no doc>
 
@@ -2996,6 +3108,7 @@ def compose_command(self, cmd: str, args: str | None) -> str:
         args=('' if args is None else (args if isinstance(args, str) else ' '.join(args))))
 ```
 </details>
+
 [`_rsruntime/lib/rs_userio.py@325:330`](/_rsruntime/lib/rs_userio.py#L325)
 > Compiles cmd and args together using various configuration to compose a command string
 
@@ -3035,6 +3148,7 @@ def helpcmd_for(self, item: str | None = None, for_section: bool = False):
     return self.compose_command('help', item)
 ```
 </details>
+
 [`_rsruntime/lib/rs_userio.py@465:472`](/_rsruntime/lib/rs_userio.py#L465)
 > Composes a help command for the item
 
@@ -3059,6 +3173,7 @@ def parse_command(self, line: str) -> tuple[bool, ChatCommand | str, str]:
     return None
 ```
 </details>
+
 [`_rsruntime/lib/rs_userio.py@331:341`](/_rsruntime/lib/rs_userio.py#L331)
 > Returns:
 > - a (True, ChatCommand, args) tuple if the line is a ChatCommand
@@ -3094,6 +3209,7 @@ def register_func(self, func: typing.Callable[[UserManager.User, ...], None], al
     return cc
 ```
 </details>
+
 [`_rsruntime/lib/rs_userio.py@360:363`](/_rsruntime/lib/rs_userio.py#L360)
 > <no doc>
 
@@ -3124,6 +3240,7 @@ def run_command(self, user: UserManager.User, line: str, not_secure: bool = Fals
                                hover_event=TellRaw.HoverEvent.TEXT, hover_contents=TellRaw().text(exc, '#FF0000', TellRaw.TF.UNDERLINED)))
 ```
 </details>
+
 [`_rsruntime/lib/rs_userio.py@342:358`](/_rsruntime/lib/rs_userio.py#L342)
 > <no doc>
 
@@ -3196,5 +3313,6 @@ def tell(self, text: typing.ForwardRef('TellRaw') | tuple[str | dict] | str):
     else: RS.SM.write(f'tellraw {self.name} {json.dumps(text)}')
 ```
 </details>
+
 [`_rsruntime/lib/rs_usermgr.py@96:101`](/_rsruntime/lib/rs_usermgr.py#L96)
 > <no doc>
