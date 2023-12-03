@@ -14,8 +14,8 @@
 ```python
 def access_entrypoint(ep: str) -> types.ModuleType
 ```
-
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def access_entrypoint(self, ep: str) -> types.ModuleType:
     '''Loads the entrypoint's surrounding module'''
@@ -31,7 +31,8 @@ def access_entrypoint(self, ep: str) -> types.ModuleType:
 ```python
 def bootstrap(close_after: bool = True)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def bootstrap(self, close_after: bool = True):
     '''Executes the base manifest, then accesses, assigns, and chainloads the entrypoint'''
@@ -56,7 +57,8 @@ def bootstrap(self, close_after: bool = True):
 ```python
 def chainload_entrypoint(rs: Callable)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def chainload_entrypoint(self, rs: typing.Callable):
     '''Runs the entrypoint's __call__ method'''
@@ -72,7 +74,8 @@ def chainload_entrypoint(self, rs: typing.Callable):
 ```python
 def close(do_exit: bool | int = False)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def close(self, do_exit: bool | int = False):
     '''Executes all shutdown callbacks and closes logging (logging.shutdown()), and exits with exit code do_exit if it isn't False'''
@@ -93,7 +96,8 @@ def close(self, do_exit: bool | int = False):
 @classmethod
 def ensure_python_version()
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @classmethod
 def ensure_python_version(cls):
@@ -116,7 +120,8 @@ def parse_arguments(args=None)
 ```python
 def register_onclose(cb: Callable)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def register_onclose(self, cb: typing.Callable[[], None]):
     '''Registers a function to run when self.close() is called'''
@@ -130,7 +135,8 @@ def register_onclose(self, cb: typing.Callable[[], None]):
 ```python
 def run_base_manifest()
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def run_base_manifest(self):
     '''Executes the base manifest (_rsruntime/MANIFEST.ini)'''
@@ -159,7 +165,8 @@ def setup_logger() -> logging.Logger
 ```python
 def stage_entrypoint(rs_outer: types.ModuleType) -> RunServer
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def stage_entrypoint(self, rs_outer: types.ModuleType) -> 'rs_outer.RunServer':
     '''Initializes the entrypoint's class (with self as an argument)'''
@@ -194,7 +201,8 @@ def format(self, obj, _indent_: int = 0) -> Generator[str, None, None]
 @staticmethod
 def formats(self, obj, joiner: str = '') -> str
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def formats(self, obj, joiner: str = '') -> str:
     return joiner.join(self.format(obj))
@@ -208,13 +216,15 @@ def formats(self, obj, joiner: str = '') -> str:
 @staticmethod
 def writes(...)
 ```
-<details><summary>Parameters...</summary>
+<details>
+<summary>Parameters...</summary>
 ```python
-    self, obj, fp=<idlelib.run.StdOutputFile object at 0x7fb1cb7e95a0>,
+    self, obj, fp=<idlelib.run.StdOutputFile object at 0x7fd0d9439b10>,
     end: str = '\n', delay: float | None = None, collect: list | Callable(str) | None = None
 ```
 </details>
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def writes(self, obj, fp=sys.stdout, end: str = '\n', delay: float | None = None, collect: list | typing.Callable[[str], None] | None = None):
     for tok in self.format(obj):
@@ -245,7 +255,8 @@ def writes(self, obj, fp=sys.stdout, end: str = '\n', delay: float | None = None
 @staticmethod
 def register(self, hook: HookType, callback: FuncType)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def register(self, hook: HookType, callback: FuncType):
     '''Adds a callback to be called by __call__(hook)'''
@@ -261,7 +272,8 @@ def register(self, hook: HookType, callback: FuncType):
 @staticmethod
 def unregister(self, hook: HookType, callback: FuncType)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def unregister(self, hook: HookType, callback: FuncType):
     '''Removes a callback that would be called by __call__(hook) (if it exists)'''
@@ -277,7 +289,8 @@ def unregister(self, hook: HookType, callback: FuncType):
 @staticmethod
 def unregister_hook(self, hook: HookType)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def unregister_hook(self, hook: HookType):
     '''Deletes all callbacks that would be called by __call__(hook)'''
@@ -300,13 +313,15 @@ def unregister_hook(self, hook: HookType):
 @staticmethod
 def bettergetter(...) -> Deserialized | Any
 ```
-<details><summary>Parameters...</summary>
+<details>
+<summary>Parameters...</summary>
 ```python
     self, key: Key, default: ForwardRef('FileBackedDict.Behavior.RAISE') | Any = Behavior.RAISE,
     set_default: bool = True
 ```
 </details>
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def bettergetter(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAISE') | typing.Any = Behavior.RAISE, set_default: bool = True) -> Deserialized | typing.Any:
     '''
@@ -338,7 +353,8 @@ def bettergetter(self, key: Key, default: typing.ForwardRef('FileBackedDict.Beha
 @staticmethod
 def contains(self, key: Key, _tree: MutableMapping | None = None) -> bool
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def contains(self, key: Key, *, _tree: MutableMapping | None = None) -> bool:
@@ -357,13 +373,15 @@ def contains(self, key: Key, *, _tree: MutableMapping | None = None) -> bool:
 @staticmethod
 def get(...) -> Deserialized
 ```
-<details><summary>Parameters...</summary>
+<details>
+<summary>Parameters...</summary>
 ```python
     self, key: Key, default: ForwardRef('FileBackedDict.Behavior.RAISE') | Serializable = Behavior.RAISE,
     _tree: MutableMapping | None = None
 ```
 </details>
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAISE') | Serializable = Behavior.RAISE, *, _tree: MutableMapping | None = None) -> Deserialized:
@@ -392,13 +410,15 @@ def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAIS
 @staticmethod
 def get(...) -> Deserialized
 ```
-<details><summary>Parameters...</summary>
+<details>
+<summary>Parameters...</summary>
 ```python
     self, key: Key, default: ForwardRef('FileBackedDict.Behavior.RAISE') | Serializable = Behavior.RAISE,
     _tree: MutableMapping | None = None
 ```
 </details>
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAISE') | Serializable = Behavior.RAISE, *, _tree: MutableMapping | None = None) -> Deserialized:
@@ -427,7 +447,8 @@ def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAIS
 @staticmethod
 def is_autosyncing(self) -> bool
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def is_autosyncing(self) -> bool:
@@ -443,7 +464,8 @@ def is_autosyncing(self) -> bool:
 @staticmethod
 def items_full(self, start_key: Key, key_join: bool = True) -> Generator[tuple[str | tuple[str, ...], Deserialized], None, None]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def items_full(self, start_key: Key, key_join: bool = True) -> typing.Generator[tuple[str | tuple[str, ...], Deserialized], None, None]:
@@ -459,7 +481,8 @@ def items_full(self, start_key: Key, key_join: bool = True) -> typing.Generator[
 @staticmethod
 def items_short(self, start_key: Key)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def items_short(self, start_key: Key):
@@ -475,7 +498,8 @@ def items_short(self, start_key: Key):
 @classmethod
 def key(key: Key, top_level: bool = False) -> tuple[str, Ellipsis]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @classmethod
 def key(cls, key: Key, *, top_level: bool = False) -> tuple[str, ...]: # key key key
@@ -501,7 +525,8 @@ def key(cls, key: Key, *, top_level: bool = False) -> tuple[str, ...]: # key key
 @staticmethod
 def keys(self, start_key: Key | None = None, key_join: bool = True) -> Generator[str | tuple[str, ...], None, None]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def keys(self, start_key: Key | None = None, key_join: bool = True) -> typing.Generator[str | tuple[str, ...], None, None]:
@@ -523,7 +548,8 @@ def keys(self, start_key: Key | None = None, key_join: bool = True) -> typing.Ge
 @staticmethod
 def path_from_topkey(self, topkey: str)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def path_from_topkey(self, topkey: str):
     '''Returns the Path corresponding to the top-key's file'''
@@ -538,7 +564,8 @@ def path_from_topkey(self, topkey: str):
 @staticmethod
 def readin(self, topkey: str)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def readin(self, topkey: str):
@@ -556,7 +583,8 @@ def readin(self, topkey: str):
 @staticmethod
 def readin_modified(self)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def readin_modified(self):
@@ -579,13 +607,15 @@ def readin_modified(self):
 @staticmethod
 def setitem(...)
 ```
-<details><summary>Parameters...</summary>
+<details>
+<summary>Parameters...</summary>
 ```python
     self, key: Key, val: Serializable,
     _tree: MutableMapping | None = None
 ```
 </details>
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def setitem(self, key: Key, val: Serializable, *, _tree: MutableMapping | None = None):
@@ -605,7 +635,8 @@ def setitem(self, key: Key, val: Serializable, *, _tree: MutableMapping | None =
 @staticmethod
 def sort(self, by: Callable(str | tuple[str, ...]) -> Any = <lambda>)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def sort(self, by: typing.Callable[[str | tuple[str, ...]], typing.Any] = lambda k: k):
     '''Sorts the data of this INIBackedDict in-place, marking all touched sections as dirty'''
@@ -624,7 +655,8 @@ def sort(self, by: typing.Callable[[str | tuple[str, ...]], typing.Any] = lambda
 @staticmethod
 def start_autosync(self)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def start_autosync(self):
@@ -640,7 +672,8 @@ def start_autosync(self):
 @staticmethod
 def stop_autosync(self)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def stop_autosync(self):
@@ -656,7 +689,8 @@ def stop_autosync(self):
 @staticmethod
 def sync(self)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def sync(self):
@@ -673,7 +707,8 @@ def sync(self):
 @staticmethod
 def values(self, start_key: Key) -> Generator[[Deserialized], None, None]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def values(self, start_key: Key) -> typing.Generator[[Deserialized], None, None]:
@@ -689,13 +724,15 @@ def values(self, start_key: Key) -> typing.Generator[[Deserialized], None, None]
 @staticmethod
 def writeback(...)
 ```
-<details><summary>Parameters...</summary>
+<details>
+<summary>Parameters...</summary>
 ```python
     self, topkey: str, only_if_dirty: bool = True,
     clean: bool = True
 ```
 </details>
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def writeback(self, topkey: str, *, only_if_dirty: bool = True, clean: bool = True):
@@ -714,7 +751,8 @@ def writeback(self, topkey: str, *, only_if_dirty: bool = True, clean: bool = Tr
 @staticmethod
 def writeback_dirty(self)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def writeback_dirty(self):
@@ -737,13 +775,15 @@ def writeback_dirty(self):
 @staticmethod
 def bettergetter(...) -> Deserialized | Any
 ```
-<details><summary>Parameters...</summary>
+<details>
+<summary>Parameters...</summary>
 ```python
     self, key: Key, default: ForwardRef('FileBackedDict.Behavior.RAISE') | Any = Behavior.RAISE,
     set_default: bool = True
 ```
 </details>
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def bettergetter(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAISE') | typing.Any = Behavior.RAISE, set_default: bool = True) -> Deserialized | typing.Any:
     '''
@@ -775,7 +815,8 @@ def bettergetter(self, key: Key, default: typing.ForwardRef('FileBackedDict.Beha
 @staticmethod
 def contains(self, key: Key, _tree: MutableMapping | None = None) -> bool
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def contains(self, key: Key, *, _tree: MutableMapping | None = None) -> bool:
@@ -794,13 +835,15 @@ def contains(self, key: Key, *, _tree: MutableMapping | None = None) -> bool:
 @staticmethod
 def get(...) -> Deserialized
 ```
-<details><summary>Parameters...</summary>
+<details>
+<summary>Parameters...</summary>
 ```python
     self, key: Key, default: ForwardRef('FileBackedDict.Behavior.RAISE') | Serializable = Behavior.RAISE,
     _tree: MutableMapping | None = None
 ```
 </details>
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAISE') | Serializable = Behavior.RAISE, *, _tree: MutableMapping | None = None) -> Deserialized:
@@ -829,13 +872,15 @@ def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAIS
 @staticmethod
 def get(...) -> Deserialized
 ```
-<details><summary>Parameters...</summary>
+<details>
+<summary>Parameters...</summary>
 ```python
     self, key: Key, default: ForwardRef('FileBackedDict.Behavior.RAISE') | Serializable = Behavior.RAISE,
     _tree: MutableMapping | None = None
 ```
 </details>
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAISE') | Serializable = Behavior.RAISE, *, _tree: MutableMapping | None = None) -> Deserialized:
@@ -864,7 +909,8 @@ def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAIS
 @staticmethod
 def is_autosyncing(self) -> bool
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def is_autosyncing(self) -> bool:
@@ -880,7 +926,8 @@ def is_autosyncing(self) -> bool:
 @staticmethod
 def items_full(self, start_key: Key, key_join: bool = True) -> Generator[tuple[str | tuple[str, ...], Deserialized], None, None]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def items_full(self, start_key: Key, key_join: bool = True) -> typing.Generator[tuple[str | tuple[str, ...], Deserialized], None, None]:
@@ -896,7 +943,8 @@ def items_full(self, start_key: Key, key_join: bool = True) -> typing.Generator[
 @staticmethod
 def items_short(self, start_key: Key)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def items_short(self, start_key: Key):
@@ -912,7 +960,8 @@ def items_short(self, start_key: Key):
 @classmethod
 def key(key: Key, top_level: bool = False) -> tuple[str, Ellipsis]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @classmethod
 def key(cls, key: Key, *, top_level: bool = False) -> tuple[str, ...]: # key key key
@@ -938,7 +987,8 @@ def key(cls, key: Key, *, top_level: bool = False) -> tuple[str, ...]: # key key
 @staticmethod
 def keys(self, start_key: Key | None = None, key_join: bool = True) -> Generator[str | tuple[str, ...], None, None]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def keys(self, start_key: Key | None = None, key_join: bool = True) -> typing.Generator[str | tuple[str, ...], None, None]:
@@ -960,7 +1010,8 @@ def keys(self, start_key: Key | None = None, key_join: bool = True) -> typing.Ge
 @staticmethod
 def path_from_topkey(self, topkey: str)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def path_from_topkey(self, topkey: str):
     '''Returns the Path corresponding to the top-key's file'''
@@ -975,7 +1026,8 @@ def path_from_topkey(self, topkey: str):
 @staticmethod
 def readin(self, topkey: str)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def readin(self, topkey: str):
@@ -993,7 +1045,8 @@ def readin(self, topkey: str):
 @staticmethod
 def readin_modified(self)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def readin_modified(self):
@@ -1016,13 +1069,15 @@ def readin_modified(self):
 @staticmethod
 def setitem(...)
 ```
-<details><summary>Parameters...</summary>
+<details>
+<summary>Parameters...</summary>
 ```python
     self, key: Key, val: Serializable,
     _tree: MutableMapping | None = None
 ```
 </details>
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def setitem(self, key: Key, val: Serializable, *, _tree: MutableMapping | None = None):
@@ -1042,7 +1097,8 @@ def setitem(self, key: Key, val: Serializable, *, _tree: MutableMapping | None =
 @staticmethod
 def sort(self, by: Callable(tuple[str, Ellipsis]) -> Any = <lambda>)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def sort(self, by: typing.Callable[[tuple[str, ...]], typing.Any] = lambda k: k):
     '''Sorts the data of this JSONBackedDict (semi-)in-place, marking all touched sections as dirty'''
@@ -1059,7 +1115,8 @@ def sort(self, by: typing.Callable[[tuple[str, ...]], typing.Any] = lambda k: k)
 @staticmethod
 def start_autosync(self)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def start_autosync(self):
@@ -1075,7 +1132,8 @@ def start_autosync(self):
 @staticmethod
 def stop_autosync(self)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def stop_autosync(self):
@@ -1091,7 +1149,8 @@ def stop_autosync(self):
 @staticmethod
 def sync(self)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def sync(self):
@@ -1108,7 +1167,8 @@ def sync(self):
 @staticmethod
 def values(self, start_key: Key) -> Generator[[Deserialized], None, None]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def values(self, start_key: Key) -> typing.Generator[[Deserialized], None, None]:
@@ -1124,13 +1184,15 @@ def values(self, start_key: Key) -> typing.Generator[[Deserialized], None, None]
 @staticmethod
 def writeback(...)
 ```
-<details><summary>Parameters...</summary>
+<details>
+<summary>Parameters...</summary>
 ```python
     self, topkey: str, only_if_dirty: bool = True,
     clean: bool = True
 ```
 </details>
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def writeback(self, topkey: str, *, only_if_dirty: bool = True, clean: bool = True):
@@ -1149,7 +1211,8 @@ def writeback(self, topkey: str, *, only_if_dirty: bool = True, clean: bool = Tr
 @staticmethod
 def writeback_dirty(self)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def writeback_dirty(self):
@@ -1193,7 +1256,8 @@ def writeback_dirty(self):
 @staticmethod
 def locked(func: Callable)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def locked(func: typing.Callable):
     '''
@@ -1230,7 +1294,8 @@ def locked(func: typing.Callable):
 @staticmethod
 def locked(func: Callable)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def locked(func: typing.Callable):
     '''
@@ -1274,7 +1339,8 @@ def locked(func: typing.Callable):
 @staticmethod
 def locked(func: Callable)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def locked(func: typing.Callable):
     '''
@@ -1311,7 +1377,8 @@ def locked(func: typing.Callable):
 @staticmethod
 def locked(func: Callable)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def locked(func: typing.Callable):
     '''
@@ -1435,7 +1502,8 @@ def classlocked(func: Callable)
 @staticmethod
 def iclasslocked(func: Callable)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def iclasslocked(func: typing.Callable):
     '''
@@ -1464,7 +1532,8 @@ def iclasslocked(func: typing.Callable):
 @staticmethod
 def iclasslocked(func: Callable)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def iclasslocked(func: typing.Callable):
     '''
@@ -1549,7 +1618,8 @@ def LockedClass(lock_class: AbstractContextManager = RLock, I_KNOW_WHAT_IM_DOING
 @staticmethod
 def locked_by(lock: AbstractContextManager)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def locked_by(lock: AbstractContextManager):
     def func_locker(func: typing.Callable):
@@ -1569,7 +1639,8 @@ def locked_by(lock: AbstractContextManager):
 @staticmethod
 def locked_by(lock: AbstractContextManager)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def locked_by(lock: AbstractContextManager):
     def func_locker(func: typing.Callable):
@@ -1634,7 +1705,8 @@ def classlocked(func: Callable)
 @staticmethod
 def iclasslocked(func: Callable)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def iclasslocked(func: typing.Callable):
     '''
@@ -1663,7 +1735,8 @@ def iclasslocked(func: typing.Callable):
 @staticmethod
 def iclasslocked(func: Callable)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def iclasslocked(func: typing.Callable):
     '''
@@ -1692,7 +1765,8 @@ def iclasslocked(func: typing.Callable):
 @staticmethod
 def locked(func: Callable)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def locked(func: typing.Callable):
     '''
@@ -1729,7 +1803,8 @@ def locked(func: typing.Callable):
 @staticmethod
 def locked(func: Callable)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def locked(func: typing.Callable):
     '''
@@ -1766,7 +1841,8 @@ def locked(func: typing.Callable):
 @staticmethod
 def locked_by(lock: AbstractContextManager)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def locked_by(lock: AbstractContextManager):
     def func_locker(func: typing.Callable):
@@ -1786,7 +1862,8 @@ def locked_by(lock: AbstractContextManager):
 @staticmethod
 def locked_by(lock: AbstractContextManager)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def locked_by(lock: AbstractContextManager):
     def func_locker(func: typing.Callable):
@@ -1853,7 +1930,8 @@ def fromhex(string)
 @staticmethod
 def clear(timer: BaseTimer) -> BaseTimer
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @staticmethod
 def clear(timer: BaseTimer) -> BaseTimer:
@@ -1868,13 +1946,15 @@ def clear(timer: BaseTimer) -> BaseTimer:
 @staticmethod
 def set_timer(...) -> Timer.BaseTimer
 ```
-<details><summary>Parameters...</summary>
+<details>
+<summary>Parameters...</summary>
 ```python
     timer_type: type[Timer.BaseTimer], func: Callable, secs: float,
     activate_now: bool = True
 ```
 </details>
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @staticmethod
 def set_timer(timer_type: type['Timer.BaseTimer'], func: typing.Callable, secs: float, activate_now: bool = True) -> 'Timer.BaseTimer':
@@ -1902,7 +1982,8 @@ def set_timer(timer_type: type['Timer.BaseTimer'], func: typing.Callable, secs: 
 ```python
 def bettergetter(key: Key, default: ForwardRef('FileBackedDict.Behavior.RAISE') | Any = Behavior.RAISE, set_default: bool = True) -> Deserialized | Any
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def bettergetter(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAISE') | typing.Any = Behavior.RAISE, set_default: bool = True) -> Deserialized | typing.Any:
     '''
@@ -1933,7 +2014,8 @@ def bettergetter(self, key: Key, default: typing.ForwardRef('FileBackedDict.Beha
 ```python
 def close()
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def close(self):
     self.stop_autosync()
@@ -1948,7 +2030,8 @@ def close(self):
 ```python
 def contains(key: Key, _tree: MutableMapping | None = None) -> bool
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def contains(self, key: Key, *, _tree: MutableMapping | None = None) -> bool:
@@ -1966,7 +2049,8 @@ def contains(self, key: Key, *, _tree: MutableMapping | None = None) -> bool:
 ```python
 def get(key: Key, default: ForwardRef('FileBackedDict.Behavior.RAISE') | Serializable = Behavior.RAISE, _tree: MutableMapping | None = None) -> Deserialized
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAISE') | Serializable = Behavior.RAISE, *, _tree: MutableMapping | None = None) -> Deserialized:
@@ -1994,7 +2078,8 @@ def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAIS
 ```python
 def get(key: Key, default: ForwardRef('FileBackedDict.Behavior.RAISE') | Serializable = Behavior.RAISE, _tree: MutableMapping | None = None) -> Deserialized
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAISE') | Serializable = Behavior.RAISE, *, _tree: MutableMapping | None = None) -> Deserialized:
@@ -2022,7 +2107,8 @@ def get(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAIS
 ```python
 def is_autosyncing() -> bool
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def is_autosyncing(self) -> bool:
@@ -2037,7 +2123,8 @@ def is_autosyncing(self) -> bool:
 ```python
 def items_full(start_key: Key, key_join: bool = True) -> Generator[tuple[str | tuple[str, ...], Deserialized], None, None]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def items_full(self, start_key: Key, key_join: bool = True) -> typing.Generator[tuple[str | tuple[str, ...], Deserialized], None, None]:
@@ -2052,7 +2139,8 @@ def items_full(self, start_key: Key, key_join: bool = True) -> typing.Generator[
 ```python
 def items_short(start_key: Key)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def items_short(self, start_key: Key):
@@ -2068,7 +2156,8 @@ def items_short(self, start_key: Key):
 @classmethod
 def key(key: Key, top_level: bool = False) -> tuple[str, Ellipsis]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @classmethod
 def key(cls, key: Key, *, top_level: bool = False) -> tuple[str, ...]: # key key key
@@ -2093,7 +2182,8 @@ def key(cls, key: Key, *, top_level: bool = False) -> tuple[str, ...]: # key key
 ```python
 def keys(start_key: Key | None = None, key_join: bool = True) -> Generator[str | tuple[str, ...], None, None]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def keys(self, start_key: Key | None = None, key_join: bool = True) -> typing.Generator[str | tuple[str, ...], None, None]:
@@ -2129,7 +2219,8 @@ def mass_set_default(pfx: str | None = None, dict_vals: dict[str, Serializable] 
 ```python
 def path_from_topkey(topkey: str)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def path_from_topkey(self, topkey: str):
     '''Returns the Path corresponding to the top-key's file'''
@@ -2143,7 +2234,8 @@ def path_from_topkey(self, topkey: str):
 ```python
 def readin(topkey: str)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def readin(self, topkey: str):
@@ -2160,7 +2252,8 @@ def readin(self, topkey: str):
 ```python
 def readin_modified()
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def readin_modified(self):
@@ -2182,7 +2275,8 @@ def readin_modified(self):
 ```python
 def set_default(option: str | tuple[str], value: Serializable)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def set_default(self, option: str | tuple[str], value: INIBackedDict.__bases__[0].__parameters__[0]):
     '''Sets an option if it does not exist'''
@@ -2197,7 +2291,8 @@ def set_default(self, option: str | tuple[str], value: INIBackedDict.__bases__[0
 ```python
 def setitem(key: Key, val: Serializable, _tree: MutableMapping | None = None)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def setitem(self, key: Key, val: Serializable, *, _tree: MutableMapping | None = None):
@@ -2216,7 +2311,8 @@ def setitem(self, key: Key, val: Serializable, *, _tree: MutableMapping | None =
 ```python
 def sort(by: Callable(str | tuple[str, ...]) -> Any = <lambda>)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def sort(self, by: typing.Callable[[str | tuple[str, ...]], typing.Any] = lambda k: k):
     '''Sorts the data of this INIBackedDict in-place, marking all touched sections as dirty'''
@@ -2234,7 +2330,8 @@ def sort(self, by: typing.Callable[[str | tuple[str, ...]], typing.Any] = lambda
 ```python
 def start_autosync()
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def start_autosync(self):
@@ -2249,7 +2346,8 @@ def start_autosync(self):
 ```python
 def stop_autosync()
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def stop_autosync(self):
@@ -2264,7 +2362,8 @@ def stop_autosync(self):
 ```python
 def sync()
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def sync(self):
@@ -2280,7 +2379,8 @@ def sync(self):
 ```python
 def values(start_key: Key) -> Generator[[Deserialized], None, None]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def values(self, start_key: Key) -> typing.Generator[[Deserialized], None, None]:
@@ -2295,7 +2395,8 @@ def values(self, start_key: Key) -> typing.Generator[[Deserialized], None, None]
 ```python
 def writeback(topkey: str, only_if_dirty: bool = True, clean: bool = True)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def writeback(self, topkey: str, *, only_if_dirty: bool = True, clean: bool = True):
@@ -2313,7 +2414,8 @@ def writeback(self, topkey: str, *, only_if_dirty: bool = True, clean: bool = Tr
 ```python
 def writeback_dirty()
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @locked
 def writeback_dirty(self):
@@ -2333,7 +2435,8 @@ def writeback_dirty(self):
 ```python
 def hookin()
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def hookin(self):
     self._hookin_hooktype(sys, 'excepthook')
@@ -2348,7 +2451,8 @@ def hookin(self):
 ```python
 def hookout()
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def hookout(self):
     self._hookout_hooktype(sys, 'excepthook')
@@ -2363,7 +2467,8 @@ def hookout(self):
 ```python
 def register_exception_hook(callback: Callable(type[BaseException], typing.Any | None, traceback))
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def register_exception_hook(self, callback: typing.Callable[[typing.Type[BaseException], typing.Any | None, types.TracebackType], None]):
     self.exceptionhooks.register(callback)
@@ -2376,7 +2481,8 @@ def register_exception_hook(self, callback: typing.Callable[[typing.Type[BaseExc
 ```python
 def register_thread_exception_hook(callback: Callable(_ExceptHookArgs))
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def register_thread_exception_hook(self, callback: typing.Callable[[threading.ExceptHookArgs], None]):
     self.threadexceptionhooks.register(callback)
@@ -2389,7 +2495,8 @@ def register_thread_exception_hook(self, callback: typing.Callable[[threading.Ex
 ```python
 def register_unraisable_hook(callback: Callable(ForwardRef('UnraisableHookArgs')))
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def register_unraisable_hook(self, callback: typing.Callable[['UnraisableHookArgs'], None]):
     self.unraisablehook.register(callback)
@@ -2421,7 +2528,8 @@ def lang_to_pattern(lang: str, group_names: tuple[str, ...] | None = None, prefi
 ```python
 def strip_prefix(line: str) -> tuple[tuple[re.Match, time.struct_time] | None, str]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def strip_prefix(self, line: str) -> tuple[tuple[re.Match, time.struct_time] | None, str]:
     if (m := self.prefix.fullmatch(line)) is not None:
@@ -2442,7 +2550,8 @@ def strip_prefix(self, line: str) -> tuple[tuple[re.Match, time.struct_time] | N
 ```python
 def handle_line(line: str)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def handle_line(self, line: str):
     pfx, lin = RS.MCLang.strip_prefix(line)
@@ -2459,7 +2568,8 @@ def handle_line(self, line: str):
 ```python
 def register_callback(patt: Pattern, callback: Callable(Match, Match, struct_time) | Callable(Match), with_prefix: bool = True)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def register_callback(self, patt: re.Pattern, callback: typing.Callable[[re.Match, re.Match, time.struct_time], None] | typing.Callable[[re.Match], None], with_prefix: bool = True):
     '''
@@ -2479,7 +2589,8 @@ def register_callback(self, patt: re.Pattern, callback: typing.Callable[[re.Matc
 ```python
 def register_chat_callback(callback: Callable(ForwardRef('RS.UM.User'), str, bool))
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def register_chat_callback(self, callback: typing.Callable[[typing.ForwardRef('RS.UM.User'), str, bool], None]):
     '''
@@ -2502,7 +2613,8 @@ def register_chat_callback(self, callback: typing.Callable[[typing.ForwardRef('R
 ```python
 def early_load_plugins()
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def early_load_plugins(self):
     self.ML.scrape_orphaned_manifests(Path(Config['plugins/plugins_path']))
@@ -2522,7 +2634,8 @@ def early_load_plugins(self):
 ```python
 def load_plugins()
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def load_plugins(self):
     bp = Path(Config['plugins/plugins_path'])
@@ -2536,7 +2649,8 @@ def load_plugins(self):
 ```python
 def restart()
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def restart(self):
     self._pmagic('restart', 'Restarting plugin {plug_name}')
@@ -2549,7 +2663,8 @@ def restart(self):
 ```python
 def start()
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def start(self):
     self._pmagic('start', 'Starting plugin {plug_name}')
@@ -2568,7 +2683,8 @@ def start(self):
 @classmethod
 def preferred_order() -> list[type[BaseServerManager]]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @classmethod
 def preferred_order(cls) -> list[typing.Type[BaseServerManager]]:
@@ -2583,7 +2699,8 @@ def preferred_order(cls) -> list[typing.Type[BaseServerManager]]:
 @classmethod
 def register(manager_type: type[BaseServerManager])
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @classmethod
 def register(cls, manager_type: typing.Type[BaseServerManager]):
@@ -2602,7 +2719,8 @@ def register(cls, manager_type: typing.Type[BaseServerManager]):
 ```python
 def close()
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def close(self):
     self.fbd.stop_autosync()
@@ -2625,7 +2743,8 @@ def close(self):
 @staticmethod
 def ijoin(self, tellraws: tuple[Self | str | dict]) -> Generator[[typing.Self], None, None]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def ijoin(self, tellraws: tuple[typing.Self | str | dict]) -> typing.Generator[[typing.Self], None, None]:
     for i,tr in enumerate(tellraws):
@@ -2642,7 +2761,8 @@ def ijoin(self, tellraws: tuple[typing.Self | str | dict]) -> typing.Generator[[
 @classmethod
 def itell(user: User, args, kwargs)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 @classmethod
 def itell(cls, user: UserManager.User, *args, **kwargs):
@@ -2658,7 +2778,8 @@ def itell(cls, user: UserManager.User, *args, **kwargs):
 @staticmethod
 def join(self, tellraws: tuple[Self | str | dict]) -> Self
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def join(self, tellraws: tuple[typing.Self | str | dict]) -> typing.Self:
     return self.__class__(self.ijoin(tellraws))
@@ -2672,7 +2793,8 @@ def join(self, tellraws: tuple[typing.Self | str | dict]) -> typing.Self:
 @staticmethod
 def line_break(self, count: int = 1)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def line_break(self, count: int = 1):
     '''Append n newlines to self (where n >= 0)'''
@@ -2689,7 +2811,8 @@ def line_break(self, count: int = 1):
 @staticmethod
 def render(self)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def render(self):
     return json.dumps(self)
@@ -2703,7 +2826,8 @@ def render(self):
 @staticmethod
 def text(...)
 ```
-<details><summary>Parameters...</summary>
+<details>
+<summary>Parameters...</summary>
 ```python
     self, text: str, color: str | None = None,
     fmt: TextFormat | dict = 0, insertion: str | None = None, type: TextType = TextType.TEXT,
@@ -2735,7 +2859,8 @@ def text(...)
 ```python
 def compose_command(cmd: str, args: str | None) -> str
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def compose_command(self, cmd: str, args: str | None) -> str:
     '''Compiles cmd and args together using various configuration to compose a command string'''
@@ -2752,7 +2877,8 @@ def compose_command(self, cmd: str, args: str | None) -> str:
 ```python
 def help(...)
 ```
-<details><summary>Parameters...</summary>
+<details>
+<summary>Parameters...</summary>
 ```python
     user: User, on: str | Literal[section] | None = None, section: None | str = None,
     force_console: bool | None = None
@@ -2768,7 +2894,8 @@ def help(...)
 ```python
 def helpcmd_for(item: str | None = None, for_section: bool = False)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def helpcmd_for(self, item: str | None = None, for_section: bool = False):
     '''Composes a help command for the item'''
@@ -2787,7 +2914,8 @@ def helpcmd_for(self, item: str | None = None, for_section: bool = False):
 ```python
 def parse_command(line: str) -> tuple[bool, _rsruntime.lib.rs_userio.ChatCommands.ChatCommand | str, str]
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def parse_command(self, line: str) -> tuple[bool, ChatCommand | str, str]:
     '''
@@ -2819,13 +2947,15 @@ def register(cmd: ChatCommands.ChatCommand, aliases: set = set()) -> ChatCommand
 ```python
 def register_func(...) -> ChatCommands.ChatCommand
 ```
-<details><summary>Parameters...</summary>
+<details>
+<summary>Parameters...</summary>
 ```python
     func: Callable(User, Ellipsis), aliases: set = set(), permission: Perm = 80,
     help_section: str | tuple[str, ...] = ()
 ```
 </details>
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def register_func(self, func: typing.Callable[[UserManager.User, ...], None], aliases: set = set(), *, permission: UserManager.Perm = UserManager.Perm.USER, help_section: str | tuple[str, ...] = ()) -> 'ChatCommands.ChatCommand':
     cc = self.ChatCommand(func, permission=permission, help_section=help_section)
@@ -2840,7 +2970,8 @@ def register_func(self, func: typing.Callable[[UserManager.User, ...], None], al
 ```python
 def run_command(user: User, line: str, not_secure: bool = False)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def run_command(self, user: UserManager.User, line: str, not_secure: bool = False):
     mat = self.parse_command(line)
@@ -2921,7 +3052,8 @@ def run_command(self, user: UserManager.User, line: str, not_secure: bool = Fals
 @staticmethod
 def tell(self, text: ForwardRef('TellRaw') | tuple[str | dict] | str)
 ```
-<details><summary>source</summary>
+<details>
+<summary>source</summary>
 ```python
 def tell(self, text: typing.ForwardRef('TellRaw') | tuple[str | dict] | str):
     if not (hasattr(self, 'name') or self.is_console):
