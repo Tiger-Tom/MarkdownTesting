@@ -14,6 +14,7 @@
 ```python
 def access_entrypoint(ep: str) -> types.ModuleType
 ```
+
 <details><summary>source</summary>
 ```python
 def access_entrypoint(self, ep: str) -> types.ModuleType:
