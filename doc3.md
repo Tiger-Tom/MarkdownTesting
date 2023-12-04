@@ -267,7 +267,7 @@ def writes(...)
 <summary>Parameters...</summary>
 
 ```python
-    self, obj, fp=<_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>,
+    self, obj, fp=<idlelib.run.StdOutputFile object at 0x7fc1a919b340>,
     end: str = '\n', delay: float | None = None, collect: list | Callable(str) | None = None
 ```
 </details>
@@ -1527,7 +1527,7 @@ def locked(func: typing.Callable):
 
 ### `basic` (`RunServer.Util.Locker.basic` | `RS.U.Locker.basic`)
 
-Alias to [`b` (`RunServer.Util.Locker.b` | `RS.U.Locker.b`)](#bRunServerUtilLockerbRSULockerb)  
+Alias to [`b` (`RunServer.Util.Locker.b` | `RS.U.Locker.b`)](#b-runserverutillockerb--rsulockerb)  
 
 
 
