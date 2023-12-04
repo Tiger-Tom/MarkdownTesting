@@ -223,10 +223,7 @@ def stage_entrypoint(self, rs_outer: types.ModuleType) -> 'rs_outer.RunServer':
 
 
 # `Util` (`RunServer.Util` | `RS.U`)
-
 [Standalone doc: parts/RunServer/Util.md](./parts/RunServer/Util.md)  
-
-
 
 ## `BetterPPrinter` (`RunServer.Util.BetterPPrinter` | `RS.U.BetterPPrinter`)
 [`_rsruntime/util/betterprettyprinter.py`](/_rsruntime/util/betterprettyprinter.py "Source")  
@@ -267,7 +264,7 @@ def writes(...)
 <summary>Parameters...</summary>
 
 ```python
-    self, obj, fp=<idlelib.run.StdOutputFile object at 0x7fc1a919b340>,
+    self, obj, fp=<idlelib.run.StdOutputFile object at 0x7fa65f95ab00>,
     end: str = '\n', delay: float | None = None, collect: list | Callable(str) | None = None
 ```
 </details>
@@ -290,8 +287,6 @@ def writes(self, obj, fp=sys.stdout, end: str = '\n', delay: float | None = None
 </details>
 
 > <no doc>
-
-
 
 ## `Hooks` (`RunServer.Util.Hooks` | `RS.U.Hooks`)
 [`_rsruntime/util/hooks.py`](/_rsruntime/util/hooks.py "Source")  
@@ -360,8 +355,6 @@ def unregister_hook(self, hook: HookType):
 </details>
 
 > Deletes all callbacks that would be called by __call__(hook)
-
-
 
 ## `INIBackedDict` (`RunServer.Util.INIBackedDict` | `RS.U.INIBackedDict`)
 [`_rsruntime/util/fbd.py`](/_rsruntime/util/fbd.py "Source")  
@@ -888,8 +881,6 @@ def writeback_dirty(self):
 
 > <no doc>
 
-
-
 ## `JSONBackedDict` (`RunServer.Util.JSONBackedDict` | `RS.U.JSONBackedDict`)
 [`_rsruntime/util/fbd.py`](/_rsruntime/util/fbd.py "Source")  
 [Standalone doc: parts/RunServer/Util/JSONBackedDict.md](./parts/RunServer/Util/JSONBackedDict.md)  
@@ -1413,13 +1404,9 @@ def writeback_dirty(self):
 
 > <no doc>
 
-
-
 ## `Locker` (`RunServer.Util.Locker` | `RS.U.Locker`)
-
+###  OR `locked_resource` (`RunServer.Util.locked_resource` | `RS.U.locked_resource`)
 [Standalone doc: parts/RunServer/Util/Locker.md](./parts/RunServer/Util/Locker.md)  
-
-
 
 ### `LockedResource` (`RunServer.Util.Locker.LockedResource` | `RS.U.Locker.LockedResource`)
 [`_rsruntime/util/locked_resource.py`](/_rsruntime/util/locked_resource.py "Source")  
@@ -1434,11 +1421,10 @@ def writeback_dirty(self):
 >>> def test_lock(self):
 >>>> print("lock acquired!")
 
-
-
-### `b` (`RunServer.Util.Locker.b` | `RS.U.Locker.b`)
+### `basic` (`RunServer.Util.Locker.basic` | `RS.U.Locker.basic`)
+####  OR `b` (`RunServer.Util.Locker.b` | `RS.U.Locker.b`)
 [`_rsruntime/util/locked_resource.py`](/_rsruntime/util/locked_resource.py "Source")  
-[Standalone doc: parts/RunServer/Util/Locker/b.md](./parts/RunServer/Util/Locker/b.md)  
+[Standalone doc: parts/RunServer/Util/Locker/basic.md](./parts/RunServer/Util/Locker/basic.md)  
 > basic(LockedResource, LR, locked, lockd)
 
 #### locked(...)
@@ -1522,14 +1508,6 @@ def locked(func: typing.Callable):
 >>> @locked # note decorator
 >>> def test_lock(self):
 >>>> print("lock acquired!")
-
-
-
-### `basic` (`RunServer.Util.Locker.basic` | `RS.U.Locker.basic`)
-
-Alias to [`b` (`RunServer.Util.Locker.b` | `RS.U.Locker.b`)](#b-runserverutillockerb--rsulockerb)  
-
-
 
 ### `cls` (`RunServer.Util.Locker.cls` | `RS.U.Locker.cls`)
 [`_rsruntime/util/locked_resource.py`](/_rsruntime/util/locked_resource.py "Source")  
@@ -1682,8 +1660,6 @@ def iclasslocked(func: typing.Callable):
 >>> def classlocked_classmethod(cls):
 >>>> print("class lock acquired!")
 
-
-
 ### `cls_decors` (`RunServer.Util.Locker.cls_decors` | `RS.U.Locker.cls_decors`)
 [`_rsruntime/util/locked_resource.py`](/_rsruntime/util/locked_resource.py "Source")  
 [Standalone doc: parts/RunServer/Util/Locker/cls_decors.md](./parts/RunServer/Util/Locker/cls_decors.md)  
@@ -1730,8 +1706,6 @@ def LockedClass(lock_class: AbstractContextManager = RLock, I_KNOW_WHAT_IM_DOING
 > or, to use a custom lock:
 >> @LockedClass(threading.Semaphore)
 >> class CustomLocked: ...
-
-
 
 ### `etc` (`RunServer.Util.Locker.etc` | `RS.U.Locker.etc`)
 [`_rsruntime/util/locked_resource.py`](/_rsruntime/util/locked_resource.py "Source")  
@@ -1785,8 +1759,6 @@ def locked_by(lock: AbstractContextManager):
 </details>
 
 > <no doc>
-
-
 
 ### `func_decors` (`RunServer.Util.Locker.func_decors` | `RS.U.Locker.func_decors`)
 [`_rsruntime/util/locked_resource.py`](/_rsruntime/util/locked_resource.py "Source")  
@@ -2027,8 +1999,6 @@ def locked_by(lock: AbstractContextManager):
 
 > <no doc>
 
-
-
 ### `locked` (`RunServer.Util.Locker.locked` | `RS.U.Locker.locked`)
 [`_rsruntime/util/locked_resource.py`](/_rsruntime/util/locked_resource.py "Source")  
 [Standalone doc: parts/RunServer/Util/Locker/locked.md](./parts/RunServer/Util/Locker/locked.md)  
@@ -2042,14 +2012,10 @@ def locked_by(lock: AbstractContextManager):
 >>> def test_lock(self):
 >>>> print("lock acquired!")
 
-
-
 ### `superclasses` (`RunServer.Util.Locker.superclasses` | `RS.U.Locker.superclasses`)
 [`_rsruntime/util/locked_resource.py`](/_rsruntime/util/locked_resource.py "Source")  
 [Standalone doc: parts/RunServer/Util/Locker/superclasses.md](./parts/RunServer/Util/Locker/superclasses.md)  
 > superclasses(LockedResource, LR)
-
-
 
 ## `PerfCounter` (`RunServer.Util.PerfCounter` | `RS.U.PerfCounter`)
 [`_rsruntime/util/perfcounter.py`](/_rsruntime/util/perfcounter.py "Source")  
@@ -2067,8 +2033,6 @@ def fromhex(string)
 > 2047.984375
 > >>> float.fromhex('-0x1p-1074')
 > -5e-324
-
-
 
 ## `TimedLoadDebug` (`RunServer.Util.TimedLoadDebug` | `RS.U.TimedLoadDebug`)
 [`_rsruntime/util/timed_load_debug.py`](/_rsruntime/util/timed_load_debug.py "Source")  
@@ -2162,8 +2126,6 @@ def iexit(self, exc_type: type | None, exc_value: typing.Any | None, traceback: 
 </details>
 
 > <no doc>
-
-
 
 ## `Timer` (`RunServer.Util.Timer` | `RS.U.Timer`)
 [`_rsruntime/util/timer.py`](/_rsruntime/util/timer.py "Source")  
@@ -3565,10 +3527,7 @@ def run_command(self, user: UserManager.User, line: str, not_secure: bool = Fals
 
 
 # `Convenience` (`RunServer.Convenience` | `RS._`)
-
 [Standalone doc: parts/RunServer/Convenience.md](./parts/RunServer/Convenience.md)  
-
-
 
 ## `command` (`RunServer.Convenience.command` | `RS._.command`)
 [`_rsruntime/lib/rs_convenience.py`](/_rsruntime/lib/rs_convenience.py "Source")  
@@ -3576,15 +3535,11 @@ def run_command(self, user: UserManager.User, line: str, not_secure: bool = Fals
 > Writes a command to the server
 >> Equivelant to RS.SM.write(line)
 
-
-
 ## `inject_line` (`RunServer.Convenience.inject_line` | `RS._.inject_line`)
 [`_rsruntime/lib/rs_convenience.py`](/_rsruntime/lib/rs_convenience.py "Source")  
 [Standalone doc: parts/RunServer/Convenience/inject_line.md](./parts/RunServer/Convenience/inject_line.md)  
 > Injects a line into LineParser, as if it was read from the ServerManager
 >> Equivelant to RS.LP.handle_line(line)
-
-
 
 ## `listen_chat` (`RunServer.Convenience.listen_chat` | `RS._.listen_chat`)
 [`_rsruntime/lib/rs_convenience.py`](/_rsruntime/lib/rs_convenience.py "Source")  
@@ -3595,19 +3550,13 @@ def run_command(self, user: UserManager.User, line: str, not_secure: bool = Fals
 >> - the line (str)
 >> - if the message was "not secure" (bool)
 
-
-
 ## `say` (`RunServer.Convenience.say` | `RS._.say`)
 [`_rsruntime/lib/rs_convenience.py`](/_rsruntime/lib/rs_convenience.py "Source")  
 [Standalone doc: parts/RunServer/Convenience/say.md](./parts/RunServer/Convenience/say.md)  
 
-
-
 ## `tell` (`RunServer.Convenience.tell` | `RS._.tell`)
 [`_rsruntime/lib/rs_convenience.py`](/_rsruntime/lib/rs_convenience.py "Source")  
 [Standalone doc: parts/RunServer/Convenience/tell.md](./parts/RunServer/Convenience/tell.md)  
-
-
 
 ## `tellraw` (`RunServer.Convenience.tellraw` | `RS._.tellraw`)
 [`_rsruntime/lib/rs_convenience.py`](/_rsruntime/lib/rs_convenience.py "Source")  
