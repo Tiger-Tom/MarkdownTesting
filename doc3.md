@@ -14,10 +14,10 @@
 ```python
 def access_entrypoint(ep: str) -> types.ModuleType
 ```
-[`_rsruntime/rs_BOOTSTRAP.py@209:213`](/_rsruntime/rs_BOOTSTRAP.py#L209)
+[`_rsruntime/rs_BOOTSTRAP.py@210:214`](/_rsruntime/rs_BOOTSTRAP.py#L210)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def access_entrypoint(self, ep: str) -> types.ModuleType:
@@ -34,10 +34,10 @@ def access_entrypoint(self, ep: str) -> types.ModuleType:
 ```python
 def bootstrap(close_after: bool = True)
 ```
-[`_rsruntime/rs_BOOTSTRAP.py@182:195`](/_rsruntime/rs_BOOTSTRAP.py#L182)
+[`_rsruntime/rs_BOOTSTRAP.py@182:196`](/_rsruntime/rs_BOOTSTRAP.py#L182)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def bootstrap(self, close_after: bool = True):
@@ -52,6 +52,7 @@ def bootstrap(self, close_after: bool = True):
     if RS != NotImplemented:
         self.logger.warning(f'Tried to set {__file__}-level RS, but it appears to have already been set?')
     else: RS = self.__contained_RS
+    self.init_entrypoint(RS)
     self.chainload_entrypoint(RS)
     if close_after: self.close()
 ```
@@ -61,15 +62,15 @@ def bootstrap(self, close_after: bool = True):
 
 ## chainload_entrypoint(...)
 ```python
-def chainload_entrypoint(rs: Callable)
+def chainload_entrypoint(rs: RS)
 ```
-[`_rsruntime/rs_BOOTSTRAP.py@218:222`](/_rsruntime/rs_BOOTSTRAP.py#L218)
+[`_rsruntime/rs_BOOTSTRAP.py@223:227`](/_rsruntime/rs_BOOTSTRAP.py#L223)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
-def chainload_entrypoint(self, rs: typing.Callable):
+def chainload_entrypoint(self, rs: 'RS'):
     '''Runs the entrypoint's __call__ method'''
     self.logger.warning(f'ENTERING ENTRYPOINT: {rs.__call__}')
     rs()
@@ -83,10 +84,10 @@ def chainload_entrypoint(self, rs: typing.Callable):
 ```python
 def close(do_exit: bool | int = False)
 ```
-[`_rsruntime/rs_BOOTSTRAP.py@226:234`](/_rsruntime/rs_BOOTSTRAP.py#L226)
+[`_rsruntime/rs_BOOTSTRAP.py@231:239`](/_rsruntime/rs_BOOTSTRAP.py#L231)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def close(self, do_exit: bool | int = False):
@@ -111,7 +112,7 @@ def ensure_python_version()
 [`_rsruntime/rs_BOOTSTRAP.py@69:73`](/_rsruntime/rs_BOOTSTRAP.py#L69)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @classmethod
@@ -124,6 +125,25 @@ def ensure_python_version(cls):
 
 > Ensure that the Python version meets the minimum requirements
 
+## init_entrypoint(...)
+```python
+def init_entrypoint(rs: RS)
+```
+[`_rsruntime/rs_BOOTSTRAP.py@219:222`](/_rsruntime/rs_BOOTSTRAP.py#L219)
+
+<details>
+<summary>Source Code</summary>
+
+```python
+def init_entrypoint(self, rs: 'RS'):
+    '''Initializes the entrypoint's class (with self as an argument)'''
+    self.logger.warning(f'INITIALIZING ENTRYPOINT: {rs.__init__}')
+    rs.__init__(self)
+```
+</details>
+
+> Initializes the entrypoint's class (with self as an argument)
+
 ## parse_arguments(...)
 ```python
 def parse_arguments(args=None)
@@ -135,10 +155,10 @@ def parse_arguments(args=None)
 ```python
 def register_onclose(cb: Callable)
 ```
-[`_rsruntime/rs_BOOTSTRAP.py@235:237`](/_rsruntime/rs_BOOTSTRAP.py#L235)
+[`_rsruntime/rs_BOOTSTRAP.py@240:242`](/_rsruntime/rs_BOOTSTRAP.py#L240)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def register_onclose(self, cb: typing.Callable[[], None]):
@@ -153,10 +173,10 @@ def register_onclose(self, cb: typing.Callable[[], None]):
 ```python
 def run_base_manifest()
 ```
-[`_rsruntime/rs_BOOTSTRAP.py@197:207`](/_rsruntime/rs_BOOTSTRAP.py#L197)
+[`_rsruntime/rs_BOOTSTRAP.py@198:208`](/_rsruntime/rs_BOOTSTRAP.py#L198)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def run_base_manifest(self):
@@ -186,20 +206,20 @@ def setup_logger() -> logging.Logger
 ```python
 def stage_entrypoint(rs_outer: types.ModuleType) -> RunServer
 ```
-[`_rsruntime/rs_BOOTSTRAP.py@214:217`](/_rsruntime/rs_BOOTSTRAP.py#L214)
+[`_rsruntime/rs_BOOTSTRAP.py@215:218`](/_rsruntime/rs_BOOTSTRAP.py#L215)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def stage_entrypoint(self, rs_outer: types.ModuleType) -> 'rs_outer.RunServer':
-    '''Initializes the entrypoint's class (with self as an argument)'''
-    self.logger.warning(f'STAGING ENTRYPOINT: {rs_outer.RunServer.__init__}')
-    return rs_outer.RunServer(self)
+    '''Stages the entrypoint's class'''
+    self.logger.warning(f'STAGING ENTRYPOINT: {rs_outer.RunServer.__new__}')
+    return rs_outer.RunServer.__new__(rs_outer.RunServer)
 ```
 </details>
 
-> Initializes the entrypoint's class (with self as an argument)
+> Stages the entrypoint's class
 
 
 # `Util` (`RunServer.Util` | `RS.U`)
@@ -228,7 +248,7 @@ def formats(self, obj, joiner: str = '') -> str
 [`_rsruntime/util/betterprettyprinter.py@68:69`](/_rsruntime/util/betterprettyprinter.py#L68)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def formats(self, obj, joiner: str = '') -> str:
@@ -247,14 +267,14 @@ def writes(...)
 <summary>Parameters...</summary>
 
 ```python
-    self, obj, fp=<idlelib.run.StdOutputFile object at 0x7f4e2a24d780>,
+    self, obj, fp=<_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>,
     end: str = '\n', delay: float | None = None, collect: list | Callable(str) | None = None
 ```
 </details>
 [`_rsruntime/util/betterprettyprinter.py@70:78`](/_rsruntime/util/betterprettyprinter.py#L70)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def writes(self, obj, fp=sys.stdout, end: str = '\n', delay: float | None = None, collect: list | typing.Callable[[str], None] | None = None):
@@ -289,7 +309,7 @@ def register(self, hook: HookType, callback: FuncType)
 [`_rsruntime/util/hooks.py@22:25`](/_rsruntime/util/hooks.py#L22)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def register(self, hook: HookType, callback: FuncType):
@@ -309,7 +329,7 @@ def unregister(self, hook: HookType, callback: FuncType)
 [`_rsruntime/util/hooks.py@26:29`](/_rsruntime/util/hooks.py#L26)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def unregister(self, hook: HookType, callback: FuncType):
@@ -329,7 +349,7 @@ def unregister_hook(self, hook: HookType)
 [`_rsruntime/util/hooks.py@30:33`](/_rsruntime/util/hooks.py#L30)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def unregister_hook(self, hook: HookType):
@@ -364,7 +384,7 @@ def bettergetter(...) -> Deserialized | Any
 [`_rsruntime/util/fbd.py@137:153`](/_rsruntime/util/fbd.py#L137)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def bettergetter(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAISE') | typing.Any = Behavior.RAISE, set_default: bool = True) -> Deserialized | typing.Any:
@@ -400,7 +420,7 @@ def contains(self, key: Key, _tree: MutableMapping | None = None) -> bool
 [`_rsruntime/util/fbd.py@188:194`](/_rsruntime/util/fbd.py#L188)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -431,7 +451,7 @@ def get(...) -> Deserialized
 [`_rsruntime/util/fbd.py@160:175`](/_rsruntime/util/fbd.py#L160)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -472,7 +492,7 @@ def get(...) -> Deserialized
 [`_rsruntime/util/fbd.py@160:175`](/_rsruntime/util/fbd.py#L160)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -505,7 +525,7 @@ def is_autosyncing(self) -> bool
 [`_rsruntime/util/fbd.py@97:100`](/_rsruntime/util/fbd.py#L97)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -525,7 +545,7 @@ def items_full(self, start_key: Key, key_join: bool = True) -> Generator[tuple[s
 [`_rsruntime/util/fbd.py@197:200`](/_rsruntime/util/fbd.py#L197)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -545,7 +565,7 @@ def items_short(self, start_key: Key)
 [`_rsruntime/util/fbd.py@201:204`](/_rsruntime/util/fbd.py#L201)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -565,7 +585,7 @@ def key(key: Key, top_level: bool = False) -> tuple[str, Ellipsis]
 [`_rsruntime/util/fbd.py@65:78`](/_rsruntime/util/fbd.py#L65)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @classmethod
@@ -595,7 +615,7 @@ def keys(self, start_key: Key | None = None, key_join: bool = True) -> Generator
 [`_rsruntime/util/fbd.py@205:214`](/_rsruntime/util/fbd.py#L205)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -621,7 +641,7 @@ def path_from_topkey(self, topkey: str)
 [`_rsruntime/util/fbd.py@79:81`](/_rsruntime/util/fbd.py#L79)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def path_from_topkey(self, topkey: str):
@@ -640,7 +660,7 @@ def readin(self, topkey: str)
 [`_rsruntime/util/fbd.py@127:132`](/_rsruntime/util/fbd.py#L127)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -662,7 +682,7 @@ def readin_modified(self)
 [`_rsruntime/util/fbd.py@116:126`](/_rsruntime/util/fbd.py#L116)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -697,7 +717,7 @@ def setitem(...)
 [`_rsruntime/util/fbd.py@178:185`](/_rsruntime/util/fbd.py#L178)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -721,7 +741,7 @@ def sort(self, by: Callable(str | tuple[str, ...]) -> Any = <lambda>)
 [`_rsruntime/util/fbd.py@277:283`](/_rsruntime/util/fbd.py#L277)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def sort(self, by: typing.Callable[[str | tuple[str, ...]], typing.Any] = lambda k: k):
@@ -744,7 +764,7 @@ def start_autosync(self)
 [`_rsruntime/util/fbd.py@89:92`](/_rsruntime/util/fbd.py#L89)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -764,7 +784,7 @@ def stop_autosync(self)
 [`_rsruntime/util/fbd.py@93:96`](/_rsruntime/util/fbd.py#L93)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -784,7 +804,7 @@ def sync(self)
 [`_rsruntime/util/fbd.py@83:87`](/_rsruntime/util/fbd.py#L83)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -805,7 +825,7 @@ def values(self, start_key: Key) -> Generator[[Deserialized], None, None]
 [`_rsruntime/util/fbd.py@216:219`](/_rsruntime/util/fbd.py#L216)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -833,7 +853,7 @@ def writeback(...)
 [`_rsruntime/util/fbd.py@106:112`](/_rsruntime/util/fbd.py#L106)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -856,7 +876,7 @@ def writeback_dirty(self)
 [`_rsruntime/util/fbd.py@102:105`](/_rsruntime/util/fbd.py#L102)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -891,7 +911,7 @@ def bettergetter(...) -> Deserialized | Any
 [`_rsruntime/util/fbd.py@137:153`](/_rsruntime/util/fbd.py#L137)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def bettergetter(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAISE') | typing.Any = Behavior.RAISE, set_default: bool = True) -> Deserialized | typing.Any:
@@ -927,7 +947,7 @@ def contains(self, key: Key, _tree: MutableMapping | None = None) -> bool
 [`_rsruntime/util/fbd.py@188:194`](/_rsruntime/util/fbd.py#L188)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -958,7 +978,7 @@ def get(...) -> Deserialized
 [`_rsruntime/util/fbd.py@160:175`](/_rsruntime/util/fbd.py#L160)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -999,7 +1019,7 @@ def get(...) -> Deserialized
 [`_rsruntime/util/fbd.py@160:175`](/_rsruntime/util/fbd.py#L160)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -1032,7 +1052,7 @@ def is_autosyncing(self) -> bool
 [`_rsruntime/util/fbd.py@97:100`](/_rsruntime/util/fbd.py#L97)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -1052,7 +1072,7 @@ def items_full(self, start_key: Key, key_join: bool = True) -> Generator[tuple[s
 [`_rsruntime/util/fbd.py@197:200`](/_rsruntime/util/fbd.py#L197)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -1072,7 +1092,7 @@ def items_short(self, start_key: Key)
 [`_rsruntime/util/fbd.py@201:204`](/_rsruntime/util/fbd.py#L201)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -1092,7 +1112,7 @@ def key(key: Key, top_level: bool = False) -> tuple[str, Ellipsis]
 [`_rsruntime/util/fbd.py@65:78`](/_rsruntime/util/fbd.py#L65)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @classmethod
@@ -1122,7 +1142,7 @@ def keys(self, start_key: Key | None = None, key_join: bool = True) -> Generator
 [`_rsruntime/util/fbd.py@205:214`](/_rsruntime/util/fbd.py#L205)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -1148,7 +1168,7 @@ def path_from_topkey(self, topkey: str)
 [`_rsruntime/util/fbd.py@79:81`](/_rsruntime/util/fbd.py#L79)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def path_from_topkey(self, topkey: str):
@@ -1167,7 +1187,7 @@ def readin(self, topkey: str)
 [`_rsruntime/util/fbd.py@127:132`](/_rsruntime/util/fbd.py#L127)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -1189,7 +1209,7 @@ def readin_modified(self)
 [`_rsruntime/util/fbd.py@116:126`](/_rsruntime/util/fbd.py#L116)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -1224,7 +1244,7 @@ def setitem(...)
 [`_rsruntime/util/fbd.py@178:185`](/_rsruntime/util/fbd.py#L178)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -1248,7 +1268,7 @@ def sort(self, by: Callable(tuple[str, Ellipsis]) -> Any = <lambda>)
 [`_rsruntime/util/fbd.py@374:378`](/_rsruntime/util/fbd.py#L374)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def sort(self, by: typing.Callable[[tuple[str, ...]], typing.Any] = lambda k: k):
@@ -1269,7 +1289,7 @@ def start_autosync(self)
 [`_rsruntime/util/fbd.py@89:92`](/_rsruntime/util/fbd.py#L89)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -1289,7 +1309,7 @@ def stop_autosync(self)
 [`_rsruntime/util/fbd.py@93:96`](/_rsruntime/util/fbd.py#L93)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -1309,7 +1329,7 @@ def sync(self)
 [`_rsruntime/util/fbd.py@83:87`](/_rsruntime/util/fbd.py#L83)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -1330,7 +1350,7 @@ def values(self, start_key: Key) -> Generator[[Deserialized], None, None]
 [`_rsruntime/util/fbd.py@216:219`](/_rsruntime/util/fbd.py#L216)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -1358,7 +1378,7 @@ def writeback(...)
 [`_rsruntime/util/fbd.py@106:112`](/_rsruntime/util/fbd.py#L106)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -1381,7 +1401,7 @@ def writeback_dirty(self)
 [`_rsruntime/util/fbd.py@102:105`](/_rsruntime/util/fbd.py#L102)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -1429,7 +1449,7 @@ def locked(func: Callable)
 [`_rsruntime/util/locked_resource.py@76:92`](/_rsruntime/util/locked_resource.py#L76)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def locked(func: typing.Callable):
@@ -1470,7 +1490,7 @@ def locked(func: Callable)
 [`_rsruntime/util/locked_resource.py@76:92`](/_rsruntime/util/locked_resource.py#L76)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def locked(func: typing.Callable):
@@ -1504,6 +1524,10 @@ def locked(func: typing.Callable):
 >>>> print("lock acquired!")
 
 
+
+### `{sn}` (`{headl}.{long}.{sn}` | `{heads}.{short or long}.{sn}`)
+
+Alias to [`b` (`RunServer.Util.Locker.b` | `RS.U.Locker.b`)](#bRunServerUtilLockerbRSULockerb)  
 
 ### `basic` (`RunServer.Util.Locker.basic` | `RS.U.Locker.basic`)
 [`_rsruntime/util/locked_resource.py`](/_rsruntime/util/locked_resource.py "Source")  
@@ -1518,7 +1542,7 @@ def locked(func: Callable)
 [`_rsruntime/util/locked_resource.py@76:92`](/_rsruntime/util/locked_resource.py#L76)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def locked(func: typing.Callable):
@@ -1559,7 +1583,7 @@ def locked(func: Callable)
 [`_rsruntime/util/locked_resource.py@76:92`](/_rsruntime/util/locked_resource.py#L76)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def locked(func: typing.Callable):
@@ -1687,7 +1711,7 @@ def iclasslocked(func: Callable)
 [`_rsruntime/util/locked_resource.py@113:123`](/_rsruntime/util/locked_resource.py#L113)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def iclasslocked(func: typing.Callable):
@@ -1720,7 +1744,7 @@ def iclasslocked(func: Callable)
 [`_rsruntime/util/locked_resource.py@113:123`](/_rsruntime/util/locked_resource.py#L113)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def iclasslocked(func: typing.Callable):
@@ -1809,7 +1833,7 @@ def locked_by(lock: AbstractContextManager)
 [`_rsruntime/util/locked_resource.py@125:132`](/_rsruntime/util/locked_resource.py#L125)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def locked_by(lock: AbstractContextManager):
@@ -1833,7 +1857,7 @@ def locked_by(lock: AbstractContextManager)
 [`_rsruntime/util/locked_resource.py@125:132`](/_rsruntime/util/locked_resource.py#L125)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def locked_by(lock: AbstractContextManager):
@@ -1902,7 +1926,7 @@ def iclasslocked(func: Callable)
 [`_rsruntime/util/locked_resource.py@113:123`](/_rsruntime/util/locked_resource.py#L113)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def iclasslocked(func: typing.Callable):
@@ -1935,7 +1959,7 @@ def iclasslocked(func: Callable)
 [`_rsruntime/util/locked_resource.py@113:123`](/_rsruntime/util/locked_resource.py#L113)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def iclasslocked(func: typing.Callable):
@@ -1968,7 +1992,7 @@ def locked(func: Callable)
 [`_rsruntime/util/locked_resource.py@76:92`](/_rsruntime/util/locked_resource.py#L76)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def locked(func: typing.Callable):
@@ -2009,7 +2033,7 @@ def locked(func: Callable)
 [`_rsruntime/util/locked_resource.py@76:92`](/_rsruntime/util/locked_resource.py#L76)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def locked(func: typing.Callable):
@@ -2050,7 +2074,7 @@ def locked_by(lock: AbstractContextManager)
 [`_rsruntime/util/locked_resource.py@125:132`](/_rsruntime/util/locked_resource.py#L125)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def locked_by(lock: AbstractContextManager):
@@ -2074,7 +2098,7 @@ def locked_by(lock: AbstractContextManager)
 [`_rsruntime/util/locked_resource.py@125:132`](/_rsruntime/util/locked_resource.py#L125)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def locked_by(lock: AbstractContextManager):
@@ -2133,6 +2157,101 @@ def fromhex(string)
 
 
 
+## `TimedLoadDebug` (`RunServer.Util.TimedLoadDebug` | `RS.U.TimedLoadDebug`)
+[`_rsruntime/util/timed_load_debug.py`](/_rsruntime/util/timed_load_debug.py "Source")  
+[Standalone doc: parts/RunServer/Util/TimedLoadDebug.md](./parts/RunServer/Util/TimedLoadDebug.md)  
+> Helper class for debugging time spent doing things
+
+### final(...)
+```python
+@staticmethod
+def final(self)
+```
+[`_rsruntime/util/timed_load_debug.py@27:29`](/_rsruntime/util/timed_load_debug.py#L27)
+
+<details>
+<summary>Source Code</summary>
+
+```python
+def final(self):
+    self.logfn(self.msgfmt[0][1].format(opc=self.ocounter, ipc=self.icounter))
+    self.ocounter = None # stop accidental multiple final() calls
+```
+</details>
+
+> <no doc>
+
+### foreach(...)
+```python
+@classmethod
+def foreach(logfunc: Callable(str), each: tuple[tuple[str, Callable], Ellipsis], tld_args)
+```
+[`_rsruntime/util/timed_load_debug.py@40:45`](/_rsruntime/util/timed_load_debug.py#L40)
+
+<details>
+<summary>Source Code</summary>
+
+```python
+@classmethod
+def foreach(cls, logfunc: typing.Callable[[str], None], *each: tuple[tuple[str, typing.Callable[[], None]], ...], **tld_args):
+    '''Executes each callable (second element of every "each" tuple) in each and times it with TimedLoadDebug, setting {c} as the first element of every "each" tuple'''
+    tld = cls(logfunc, iterable=(n for n,c in each), **tld_args)
+    for n,c in each:
+        with tld: c()
+```
+</details>
+
+> Executes each callable (second element of every "each" tuple) in each and times it with TimedLoadDebug, setting {c} as the first element of every "each" tuple
+
+### ienter(...)
+```python
+@staticmethod
+def ienter(self)
+```
+[`_rsruntime/util/timed_load_debug.py@30:32`](/_rsruntime/util/timed_load_debug.py#L30)
+
+<details>
+<summary>Source Code</summary>
+
+```python
+def ienter(self):
+    self.icounter = PerfCounter(sec='', secs='')
+    self.logfn(self.msgfmt[1][0].format(c=next(self.cur[0]), opc=self.ocounter, ipc=self.icounter))
+```
+</details>
+
+> <no doc>
+
+### iexit(...)
+```python
+@staticmethod
+def iexit(...)
+```
+<details>
+<summary>Parameters...</summary>
+
+```python
+    self, exc_type: type | None, exc_value: typing.Any | None,
+    traceback: traceback
+```
+</details>
+[`_rsruntime/util/timed_load_debug.py@34:37`](/_rsruntime/util/timed_load_debug.py#L34)
+
+<details>
+<summary>Source Code</summary>
+
+```python
+def iexit(self, exc_type: type | None, exc_value: typing.Any | None, traceback: TracebackType):
+    r = self.msgfmt[2](exc_type, exc_value, traceback)
+    if r is False: return
+    self.logfn(self.msgfmt[1][1].format(c=next(self.cur[1]), opc=self.ocounter, ipc=self.icounter) if r is None else r)
+```
+</details>
+
+> <no doc>
+
+
+
 ## `Timer` (`RunServer.Util.Timer` | `RS.U.Timer`)
 [`_rsruntime/util/timer.py`](/_rsruntime/util/timer.py "Source")  
 [Standalone doc: parts/RunServer/Util/Timer.md](./parts/RunServer/Util/Timer.md)  
@@ -2145,7 +2264,7 @@ def clear(timer: BaseTimer) -> BaseTimer
 [`_rsruntime/util/timer.py@84:86`](/_rsruntime/util/timer.py#L84)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @staticmethod
@@ -2172,7 +2291,7 @@ def set_timer(...) -> Timer.BaseTimer
 [`_rsruntime/util/timer.py@80:83`](/_rsruntime/util/timer.py#L80)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @staticmethod
@@ -2204,7 +2323,7 @@ def bettergetter(key: Key, default: ForwardRef('FileBackedDict.Behavior.RAISE') 
 [`_rsruntime/util/fbd.py@137:153`](/_rsruntime/util/fbd.py#L137)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def bettergetter(self, key: Key, default: typing.ForwardRef('FileBackedDict.Behavior.RAISE') | typing.Any = Behavior.RAISE, set_default: bool = True) -> Deserialized | typing.Any:
@@ -2239,7 +2358,7 @@ def close()
 [`_rsruntime/lib/rs_config.py@65:68`](/_rsruntime/lib/rs_config.py#L65)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def close(self):
@@ -2258,7 +2377,7 @@ def contains(key: Key, _tree: MutableMapping | None = None) -> bool
 [`_rsruntime/util/fbd.py@188:194`](/_rsruntime/util/fbd.py#L188)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2280,7 +2399,7 @@ def get(key: Key, default: ForwardRef('FileBackedDict.Behavior.RAISE') | Seriali
 [`_rsruntime/util/fbd.py@160:175`](/_rsruntime/util/fbd.py#L160)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2312,7 +2431,7 @@ def get(key: Key, default: ForwardRef('FileBackedDict.Behavior.RAISE') | Seriali
 [`_rsruntime/util/fbd.py@160:175`](/_rsruntime/util/fbd.py#L160)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2344,7 +2463,7 @@ def is_autosyncing() -> bool
 [`_rsruntime/util/fbd.py@97:100`](/_rsruntime/util/fbd.py#L97)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2363,7 +2482,7 @@ def items_full(start_key: Key, key_join: bool = True) -> Generator[tuple[str | t
 [`_rsruntime/util/fbd.py@197:200`](/_rsruntime/util/fbd.py#L197)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2382,7 +2501,7 @@ def items_short(start_key: Key)
 [`_rsruntime/util/fbd.py@201:204`](/_rsruntime/util/fbd.py#L201)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2402,7 +2521,7 @@ def key(key: Key, top_level: bool = False) -> tuple[str, Ellipsis]
 [`_rsruntime/util/fbd.py@65:78`](/_rsruntime/util/fbd.py#L65)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @classmethod
@@ -2431,7 +2550,7 @@ def keys(start_key: Key | None = None, key_join: bool = True) -> Generator[str |
 [`_rsruntime/util/fbd.py@205:214`](/_rsruntime/util/fbd.py#L205)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2471,7 +2590,7 @@ def path_from_topkey(topkey: str)
 [`_rsruntime/util/fbd.py@79:81`](/_rsruntime/util/fbd.py#L79)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def path_from_topkey(self, topkey: str):
@@ -2489,7 +2608,7 @@ def readin(topkey: str)
 [`_rsruntime/util/fbd.py@127:132`](/_rsruntime/util/fbd.py#L127)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2510,7 +2629,7 @@ def readin_modified()
 [`_rsruntime/util/fbd.py@116:126`](/_rsruntime/util/fbd.py#L116)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2536,7 +2655,7 @@ def set_default(option: str | tuple[str], value: Serializable)
 [`_rsruntime/lib/rs_config.py@24:27`](/_rsruntime/lib/rs_config.py#L24)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def set_default(self, option: str | tuple[str], value: INIBackedDict.__bases__[0].__parameters__[0]):
@@ -2555,7 +2674,7 @@ def setitem(key: Key, val: Serializable, _tree: MutableMapping | None = None)
 [`_rsruntime/util/fbd.py@178:185`](/_rsruntime/util/fbd.py#L178)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2578,7 +2697,7 @@ def sort(by: Callable(str | tuple[str, ...]) -> Any = <lambda>)
 [`_rsruntime/util/fbd.py@277:283`](/_rsruntime/util/fbd.py#L277)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def sort(self, by: typing.Callable[[str | tuple[str, ...]], typing.Any] = lambda k: k):
@@ -2600,7 +2719,7 @@ def start_autosync()
 [`_rsruntime/util/fbd.py@89:92`](/_rsruntime/util/fbd.py#L89)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2619,7 +2738,7 @@ def stop_autosync()
 [`_rsruntime/util/fbd.py@93:96`](/_rsruntime/util/fbd.py#L93)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2638,7 +2757,7 @@ def sync()
 [`_rsruntime/util/fbd.py@83:87`](/_rsruntime/util/fbd.py#L83)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2658,7 +2777,7 @@ def values(start_key: Key) -> Generator[[Deserialized], None, None]
 [`_rsruntime/util/fbd.py@216:219`](/_rsruntime/util/fbd.py#L216)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2677,7 +2796,7 @@ def writeback(topkey: str, only_if_dirty: bool = True, clean: bool = True)
 [`_rsruntime/util/fbd.py@106:112`](/_rsruntime/util/fbd.py#L106)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2699,7 +2818,7 @@ def writeback_dirty()
 [`_rsruntime/util/fbd.py@102:105`](/_rsruntime/util/fbd.py#L102)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @locked
@@ -2723,7 +2842,7 @@ def hookin()
 [`_rsruntime/lib/rs_exceptionhandlers.py@38:41`](/_rsruntime/lib/rs_exceptionhandlers.py#L38)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def hookin(self):
@@ -2742,7 +2861,7 @@ def hookout()
 [`_rsruntime/lib/rs_exceptionhandlers.py@46:49`](/_rsruntime/lib/rs_exceptionhandlers.py#L46)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def hookout(self):
@@ -2761,7 +2880,7 @@ def register_exception_hook(callback: Callable(type[BaseException], typing.Any |
 [`_rsruntime/lib/rs_exceptionhandlers.py@54:55`](/_rsruntime/lib/rs_exceptionhandlers.py#L54)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def register_exception_hook(self, callback: typing.Callable[[typing.Type[BaseException], typing.Any | None, types.TracebackType], None]):
@@ -2778,7 +2897,7 @@ def register_thread_exception_hook(callback: Callable(_ExceptHookArgs))
 [`_rsruntime/lib/rs_exceptionhandlers.py@58:59`](/_rsruntime/lib/rs_exceptionhandlers.py#L58)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def register_thread_exception_hook(self, callback: typing.Callable[[threading.ExceptHookArgs], None]):
@@ -2795,11 +2914,95 @@ def register_unraisable_hook(callback: Callable(ForwardRef('UnraisableHookArgs')
 [`_rsruntime/lib/rs_exceptionhandlers.py@56:57`](/_rsruntime/lib/rs_exceptionhandlers.py#L56)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def register_unraisable_hook(self, callback: typing.Callable[['UnraisableHookArgs'], None]):
     self.unraisablehook.register(callback)
+```
+</details>
+
+> <no doc>
+
+
+# `MinecraftManager` (`RunServer.MinecraftManager` | `RS.MC`)
+[`_rsruntime/lib/rs_mcmgr.py`](/_rsruntime/lib/rs_mcmgr.py "Source")  
+[Standalone doc: parts/RunServer/MinecraftManager.md](./parts/RunServer/MinecraftManager.md)  
+
+## init2()
+```python
+def init2()
+```
+[`_rsruntime/lib/rs_mcmgr.py@32:47`](/_rsruntime/lib/rs_mcmgr.py#L32)
+
+<details>
+<summary>Source Code</summary>
+
+```python
+def init2(self):
+    if Config['minecraft/manager/auto_fetch_if_missing'] or Config['minecraft/manager/auto_update']:
+        try: self.setup_manifest()
+        except Exception as e:
+            self.logger.fatal(f'Could not setup Minecraft version manifest:\n{"".join(traceback.format_exception(e))}')
+            self.has_manifest = False
+        else: self.has_manifest = True
+    if not (p := Path(Config['minecraft/path/base'], Config['minecraft/path/server_jar'])).exists():
+        self.logger.warning(f'{p} does not exist!')
+        if not self.has_manifest:
+            self.logger.irrec('Minecraft version manifest failed earlier; cannot continue')
+            raise FileNotFoundError(str(p))
+        if not Config['minecraft/manager/auto_fetch_if_missing']:
+            self.logger.irrec('Config minecraft/manager/auto_fetch_if_missing is false, cannot download!')
+            raise FileNotFoundError(str(p))
+        self.missing_fetch()
+```
+</details>
+
+> <no doc>
+
+## missing_fetch()
+```python
+def missing_fetch()
+```
+[`_rsruntime/lib/rs_mcmgr.py@65:66`](/_rsruntime/lib/rs_mcmgr.py#L65)
+
+<details>
+<summary>Source Code</summary>
+
+```python
+def missing_fetch(self):
+    ...
+```
+</details>
+
+> <no doc>
+
+## setup_manifest()
+```python
+def setup_manifest()
+```
+[`_rsruntime/lib/rs_mcmgr.py@49:63`](/_rsruntime/lib/rs_mcmgr.py#L49)
+
+<details>
+<summary>Source Code</summary>
+
+```python
+def setup_manifest(self):
+    self.logger.info(f'Fetching {Config["minecraft/manager/version_manifest_url"]}')
+    with request.urlopen(Config['minecraft/manager/version_manifest_url']) as r:
+        data = json.load(r)
+    tfmt = Config['minecraft/manager/time_fmt']
+    versions = {v['id']: v | {
+            'time': strptime(v['time'], tfmt), '_time': v['time'],
+            'releaseTime': strptime(v['releaseTime'], tfmt), '_releaseTime': v['releaseTime']
+        } for v in data['versions']}
+    self.versions = self.VersionsType(versions=versions,
+        latest=max((versions[data['latest']['release']], versions[data['latest']['snapshot']]), key=lambda v: v['time']),
+        latest_release=versions[data['latest']['release']],
+        latest_snapshot=versions[data['latest']['snapshot']],
+        releases = {k: v for k,v in versions.items() if v['type'] == 'release'},
+        snapshots = {k: v for k,v in versions.items() if v['type'] == 'snapshot'},
+    )
 ```
 </details>
 
@@ -2817,6 +3020,23 @@ def extract_lang() -> dict[str, str]
 [`_rsruntime/lib/rs_lineparser.py@77:96`](/_rsruntime/lib/rs_lineparser.py#L77)
 > Extracts the language file from a server JAR file, sets and returns self.lang
 
+## init2()
+```python
+def init2()
+```
+[`_rsruntime/lib/rs_lineparser.py@30:31`](/_rsruntime/lib/rs_lineparser.py#L30)
+
+<details>
+<summary>Source Code</summary>
+
+```python
+def init2(self):
+    self.extract_lang()
+```
+</details>
+
+> <no doc>
+
 ## lang_to_pattern(...)
 ```python
 def lang_to_pattern(lang: str, group_names: tuple[str, ...] | None = None, prefix_suffix: str = '^{}$') -> Pattern
@@ -2831,7 +3051,7 @@ def strip_prefix(line: str) -> tuple[tuple[re.Match, time.struct_time] | None, s
 [`_rsruntime/lib/rs_lineparser.py@35:39`](/_rsruntime/lib/rs_lineparser.py#L35)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def strip_prefix(self, line: str) -> tuple[tuple[re.Match, time.struct_time] | None, str]:
@@ -2853,10 +3073,10 @@ def strip_prefix(self, line: str) -> tuple[tuple[re.Match, time.struct_time] | N
 ```python
 def handle_line(line: str)
 ```
-[`_rsruntime/lib/rs_lineparser.py@120:125`](/_rsruntime/lib/rs_lineparser.py#L120)
+[`_rsruntime/lib/rs_lineparser.py@121:126`](/_rsruntime/lib/rs_lineparser.py#L121)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def handle_line(self, line: str):
@@ -2870,14 +3090,31 @@ def handle_line(self, line: str):
 
 > <no doc>
 
+## init2()
+```python
+def init2()
+```
+[`_rsruntime/lib/rs_lineparser.py@106:107`](/_rsruntime/lib/rs_lineparser.py#L106)
+
+<details>
+<summary>Source Code</summary>
+
+```python
+def init2(self):
+    self.chat_patt = RS.MCLang.lang_to_pattern(RS.MCLang.lang['chat.type.text'], ('username', 'message'), prefix_suffix=r'^(?P<not_secure>(?:\[Not Secure\] )?){}$')
+```
+</details>
+
+> <no doc>
+
 ## register_callback(...)
 ```python
 def register_callback(patt: Pattern, callback: Callable(Match, Match, struct_time) | Callable(Match), with_prefix: bool = True)
 ```
-[`_rsruntime/lib/rs_lineparser.py@107:113`](/_rsruntime/lib/rs_lineparser.py#L107)
+[`_rsruntime/lib/rs_lineparser.py@108:114`](/_rsruntime/lib/rs_lineparser.py#L108)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def register_callback(self, patt: re.Pattern, callback: typing.Callable[[re.Match, re.Match, time.struct_time], None] | typing.Callable[[re.Match], None], with_prefix: bool = True):
@@ -2898,10 +3135,10 @@ def register_callback(self, patt: re.Pattern, callback: typing.Callable[[re.Matc
 ```python
 def register_chat_callback(callback: Callable(ForwardRef('RS.UM.User'), str, bool))
 ```
-[`_rsruntime/lib/rs_lineparser.py@114:119`](/_rsruntime/lib/rs_lineparser.py#L114)
+[`_rsruntime/lib/rs_lineparser.py@115:120`](/_rsruntime/lib/rs_lineparser.py#L115)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def register_chat_callback(self, callback: typing.Callable[[typing.ForwardRef('RS.UM.User'), str, bool], None]):
@@ -2928,7 +3165,7 @@ def early_load_plugins()
 [`_rsruntime/lib/rs_plugins.py@171:179`](/_rsruntime/lib/rs_plugins.py#L171)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def early_load_plugins(self):
@@ -2952,7 +3189,7 @@ def load_plugins()
 [`_rsruntime/lib/rs_plugins.py@181:183`](/_rsruntime/lib/rs_plugins.py#L181)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def load_plugins(self):
@@ -2970,7 +3207,7 @@ def restart()
 [`_rsruntime/lib/rs_plugins.py@212:213`](/_rsruntime/lib/rs_plugins.py#L212)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def restart(self):
@@ -2987,7 +3224,7 @@ def start()
 [`_rsruntime/lib/rs_plugins.py@210:211`](/_rsruntime/lib/rs_plugins.py#L210)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def start(self):
@@ -3007,10 +3244,10 @@ def start(self):
 @classmethod
 def preferred_order() -> list[type[BaseServerManager]]
 ```
-[`_rsruntime/lib/rs_servmgr.py@199:201`](/_rsruntime/lib/rs_servmgr.py#L199)
+[`_rsruntime/lib/rs_servmgr.py@198:200`](/_rsruntime/lib/rs_servmgr.py#L198)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @classmethod
@@ -3026,10 +3263,10 @@ def preferred_order(cls) -> list[typing.Type[BaseServerManager]]:
 @classmethod
 def register(manager_type: type[BaseServerManager])
 ```
-[`_rsruntime/lib/rs_servmgr.py@196:198`](/_rsruntime/lib/rs_servmgr.py#L196)
+[`_rsruntime/lib/rs_servmgr.py@195:197`](/_rsruntime/lib/rs_servmgr.py#L195)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @classmethod
@@ -3049,15 +3286,47 @@ def register(cls, manager_type: typing.Type[BaseServerManager]):
 ```python
 def close()
 ```
-[`_rsruntime/lib/rs_usermgr.py@168:170`](/_rsruntime/lib/rs_usermgr.py#L168)
+[`_rsruntime/lib/rs_usermgr.py@169:171`](/_rsruntime/lib/rs_usermgr.py#L169)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def close(self):
     self.fbd.stop_autosync()
     self.fbd.sync()
+```
+</details>
+
+> <no doc>
+
+## init2()
+```python
+def init2()
+```
+[`_rsruntime/lib/rs_usermgr.py@147:163`](/_rsruntime/lib/rs_usermgr.py#L147)
+
+<details>
+<summary>Source Code</summary>
+
+```python
+def init2(self):
+    # Register hooks
+    LineParser.register_callback( # player joins
+        MCLang.lang_to_pattern(MCLang.lang['multiplayer.player.joined'], ('username',)),
+        lambda m,p,t: self[m.group('username')](connected=True, last_connected=t))
+    LineParser.register_callback( # player joins, has changed name
+        MCLang.lang_to_pattern(MCLang.lang['multiplayer.player.joined.renamed'], ('username', 'old_name')),
+        lambda m,p,t: self[m.group('username')](connected=True, old_name=m.group('old_name'), last_connected=t))
+    LineParser.register_callback( # player leaves
+        MCLang.lang_to_pattern(MCLang.lang['multiplayer.player.left'], ('username',)),
+        lambda m,p,t: self[m.group('username')](connected=False, last_disconnected=t))
+    LineParser.register_callback( # player is assigned UUID
+        re.compile(r'^UUID of player (?P<username>\w+) is (?P<uuid>[a-z0-6\-]+)$'),
+        lambda m,p,t: self[m.group('username')](uuid=m.group('uuid')))
+    LineParser.register_callback( # player is assigned entity ID and origin
+        re.compile(r'^(?P<username>\w+)\[\/(?P<origin>(?P<ip>[\d.]+):(?P<port>[\d]+))\] logged in with entity id (?P<entity_id>[\d]+) at \((?P<x>\-?[\d.]+), (?P<y>\-?[\d.]+), (?P<z>\-?[\d.]+)\)$'),
+        lambda p,t,m: self[m.group('username')](ip=m.group('ip'), port=int(m.group('port')), origin=m.group('origin'), login_coords=(float(m.group('x')), float(m.group('y')), float(m.group('z')))))
 ```
 </details>
 
@@ -3079,7 +3348,7 @@ def ijoin(self, tellraws: tuple[Self | str | dict]) -> Generator[[typing.Self], 
 [`_rsruntime/lib/rs_userio.py@105:109`](/_rsruntime/lib/rs_userio.py#L105)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def ijoin(self, tellraws: tuple[typing.Self | str | dict]) -> typing.Generator[[typing.Self], None, None]:
@@ -3100,7 +3369,7 @@ def itell(user: User, args, kwargs)
 [`_rsruntime/lib/rs_userio.py@114:117`](/_rsruntime/lib/rs_userio.py#L114)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 @classmethod
@@ -3120,7 +3389,7 @@ def join(self, tellraws: tuple[Self | str | dict]) -> Self
 [`_rsruntime/lib/rs_userio.py@110:111`](/_rsruntime/lib/rs_userio.py#L110)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def join(self, tellraws: tuple[typing.Self | str | dict]) -> typing.Self:
@@ -3138,7 +3407,7 @@ def line_break(self, count: int = 1)
 [`_rsruntime/lib/rs_userio.py@99:103`](/_rsruntime/lib/rs_userio.py#L99)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def line_break(self, count: int = 1):
@@ -3159,7 +3428,7 @@ def render(self)
 [`_rsruntime/lib/rs_userio.py@37:38`](/_rsruntime/lib/rs_userio.py#L37)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def render(self):
@@ -3208,10 +3477,10 @@ def text(...)
 ```python
 def compose_command(cmd: str, args: str | None) -> str
 ```
-[`_rsruntime/lib/rs_userio.py@325:330`](/_rsruntime/lib/rs_userio.py#L325)
+[`_rsruntime/lib/rs_userio.py@328:333`](/_rsruntime/lib/rs_userio.py#L328)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def compose_command(self, cmd: str, args: str | None) -> str:
@@ -3237,7 +3506,7 @@ def help(...)
     force_console: bool | None = None
 ```
 </details>
-[`_rsruntime/lib/rs_userio.py@392:458`](/_rsruntime/lib/rs_userio.py#L392)
+[`_rsruntime/lib/rs_userio.py@395:461`](/_rsruntime/lib/rs_userio.py#L395)
 > Shows help on commands or sections.
 > If on is "section", then shows help on the section specified by "section"
 > If on is a command, then shows help on that command
@@ -3247,10 +3516,10 @@ def help(...)
 ```python
 def helpcmd_for(item: str | None = None, for_section: bool = False)
 ```
-[`_rsruntime/lib/rs_userio.py@465:472`](/_rsruntime/lib/rs_userio.py#L465)
+[`_rsruntime/lib/rs_userio.py@468:475`](/_rsruntime/lib/rs_userio.py#L468)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def helpcmd_for(self, item: str | None = None, for_section: bool = False):
@@ -3266,14 +3535,34 @@ def helpcmd_for(self, item: str | None = None, for_section: bool = False):
 
 > Composes a help command for the item
 
+## init2()
+```python
+def init2()
+```
+[`_rsruntime/lib/rs_userio.py@297:301`](/_rsruntime/lib/rs_userio.py#L297)
+
+<details>
+<summary>Source Code</summary>
+
+```python
+def init2(self):
+    # Register hooks
+    LineParser.register_chat_callback(self.run_command)
+    # Register help command
+    self.register_func(self.help, {'?',})
+```
+</details>
+
+> <no doc>
+
 ## parse_command(...)
 ```python
 def parse_command(line: str) -> tuple[bool, _rsruntime.lib.rs_userio.ChatCommands.ChatCommand | str, str]
 ```
-[`_rsruntime/lib/rs_userio.py@331:341`](/_rsruntime/lib/rs_userio.py#L331)
+[`_rsruntime/lib/rs_userio.py@334:344`](/_rsruntime/lib/rs_userio.py#L334)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def parse_command(self, line: str) -> tuple[bool, ChatCommand | str, str]:
@@ -3299,7 +3588,7 @@ def parse_command(self, line: str) -> tuple[bool, ChatCommand | str, str]:
 ```python
 def register(cmd: ChatCommands.ChatCommand, aliases: set = set()) -> ChatCommands.ChatCommand
 ```
-[`_rsruntime/lib/rs_userio.py@364:382`](/_rsruntime/lib/rs_userio.py#L364)
+[`_rsruntime/lib/rs_userio.py@367:385`](/_rsruntime/lib/rs_userio.py#L367)
 > <no doc>
 
 ## register_func(...)
@@ -3314,10 +3603,10 @@ def register_func(...) -> ChatCommands.ChatCommand
     help_section: str | tuple[str, ...] = ()
 ```
 </details>
-[`_rsruntime/lib/rs_userio.py@360:363`](/_rsruntime/lib/rs_userio.py#L360)
+[`_rsruntime/lib/rs_userio.py@363:366`](/_rsruntime/lib/rs_userio.py#L363)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def register_func(self, func: typing.Callable[[UserManager.User, ...], None], aliases: set = set(), *, permission: UserManager.Perm = UserManager.Perm.USER, help_section: str | tuple[str, ...] = ()) -> 'ChatCommands.ChatCommand':
@@ -3333,10 +3622,10 @@ def register_func(self, func: typing.Callable[[UserManager.User, ...], None], al
 ```python
 def run_command(user: User, line: str, not_secure: bool = False)
 ```
-[`_rsruntime/lib/rs_userio.py@342:358`](/_rsruntime/lib/rs_userio.py#L342)
+[`_rsruntime/lib/rs_userio.py@345:361`](/_rsruntime/lib/rs_userio.py#L345)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def run_command(self, user: UserManager.User, line: str, not_secure: bool = False):
@@ -3421,7 +3710,7 @@ def tell(self, text: ForwardRef('TellRaw') | tuple[str | dict] | str)
 [`_rsruntime/lib/rs_usermgr.py@96:101`](/_rsruntime/lib/rs_usermgr.py#L96)
 
 <details>
-<summary>source</summary>
+<summary>Source Code</summary>
 
 ```python
 def tell(self, text: typing.ForwardRef('TellRaw') | tuple[str | dict] | str):
