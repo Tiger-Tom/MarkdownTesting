@@ -1525,7 +1525,7 @@ def locked(func: typing.Callable):
 
 
 
-### `{sn}` (`{headl}.{long}.{sn}` | `{heads}.{short or long}.{sn}`)
+### `basic` (`RunServer.Util.Locker.basic` | `RS.U.Locker.basic`)
 
 Alias to [`b` (`RunServer.Util.Locker.b` | `RS.U.Locker.b`)](#bRunServerUtilLockerbRSULockerb)  
 
