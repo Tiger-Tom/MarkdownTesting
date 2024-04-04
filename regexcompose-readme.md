@@ -32,22 +32,46 @@ Also see docstrings in `__init__.py` for (possibly) more detailed/up-to-date inf
 
 ## Exceptions
 
-### Hiarchy
-
 [`PatternComposeException(Exception)`](#patterncomposexception)
- ├──[`exceptions.PatternExistsError`](patternexistserror)
- ├──`exceptions.PatternNotFoundError(KeyError)``
- ├──`exceptions.RequiredPatternError`
- └──`exceptions.IncompletePatternError`
+ ├──[`exceptions.PatternExistsError`](#exceptionspatternexistserror)
+ ├──[`exceptions.PatternNotFoundError(KeyError)`](#exceptionspatternnotfound)
+ ├──[`exceptions.RequiredPatternError`](#exceptionsrequiredpatternerror)
+ └──[`exceptions.IncompletePatternError`](#exceptionsincompletepatternerror)
  
-### PatternComposeException
+### `PatternComposeException`
+
+The base exception class
+
+Note that this exception is both in the module's global namespace, as well as in the `exceptions` namespace
+
+### `exceptions.PatternExistsError`
+Raised when a pattern could not be added due to its name already being taken
+
+Raised by:
+- [`PatternComposer.add()`](#add) and [`PatternComposer.multiadd()`](#multiadd)
+
+### `exceptions.PatternNotFoundError`
+Raised when a pattern was directly needed, but not defined
+
+Raised by:
+- [`compile_refpatt()`](#compile_refpatt) *(only when its `allow_partial` is false)*
+- [`PatternComposer.update()`](#update) and [`PatternComposer.multiupdate()`](#multiupdate)
+- [`PatternComposer.__getitem__()`](#__getitem__) / [`PatternComposer[]`](#__getitem__)
+
+In addition to inheriting from [`PatternComposeException`](#patterncomposeexception), this exception also inherits from `KeyError`
+
+### `exceptions.IncompletePatternError`
+Raised when a fully compiled non-partial pattern is required, but it couldn't be fully resolved
+
+Raised by:
+- [`PatternComposer.__getitem__()`](#__getitem__) / [`PatternComposer[]`](#__getitem__)
 
 ## Functions
 Functions that do not need the state provided by `PatternComposer`
 
-### `get_refpatt_parts`
+### `get_refpatt_parts()`
 
-### `compile_refpatt`
+### `compile_refpatt()`
 
 # PatternComposer
 The main interface of this package
@@ -58,7 +82,7 @@ The main interface of this package
   - Vals: `str`, the uncompiled pattern
 - `.references`: `dict`
   - Keys: `str`, the name of the referrer pattern
-  - Vals: `frozenset[str]`, the reference-pattern parts that the pattern contains, as returned by [`get_refpatt_parts`](get_refpatt_parts)
+  - Vals: `frozenset[str]`, the reference-pattern parts that the pattern contains, as returned by [`get_refpatt_parts()`](get_refpatt_parts)
 - `.compiled`: `dict`
   - Keys: `str`, the name of the pattern
   - Vals: `str`, the value of the pattern, constructed through
