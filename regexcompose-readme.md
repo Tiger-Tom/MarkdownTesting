@@ -1,124 +1,76 @@
-# RegExCompose
+# What it is
+A regular expression builder that manages cross-pattern references and easy
+runtime mutability by default
 
-RegExCompose is a library that allows the composition of regular expressions from multiple others, using a special syntax.
+# Features
+- Configurable: the default pattern 
 
-## See:
-- [Process](#process) for information on how the main interface works and what it does
-- [Terminology](#terminology) if you get confused by terminology in docstrings and this doc
-- [Syntax](#syntax) for information on how these expressions are written
-- [Documentation](#documentation) for documentation of the interface
-  - [Exceptions](#exceptions) for information on exceptions specific to this package
-  - [Functions](#functions) for information on the functions that are not part of a `PatternComposer`
-  - [PatternComposer](#patterncomposer) for information on the main interface of this package
+# Why & priorities
+When working on my programming language, [Caustic](https://codeberg.org/Caustic),
+I was displeased at most of the parsers I found, and decided to make my own. For
+the parsing of regular expressions, I wanted the following, so this package prioritizes:
+- *Runtime modification*: given how one of Caustic's major selling points is the
+  variable syntax, I need to be able to easily modify an expression whenever,
+  and have all patterns that source from a sub-pattern update
 
-# Terminology
-A "reference"-pattern refers to a pattern that contains references to other patterns (contains a `(?~<name>)`)  
-A "reference"-pattern *part* refers to the `<name>` in a pattern containing `(?~<name>)`
+# Examples
+Note that examples are given with the default matching pattern, so references will be made as `(?~name)`
 
-[Pattern "compilation"](#pattern-compilation) refers to the process of filling a pattern's "parts" with values, A.E. replacing `(?~name)` in a pattern with the pattern named "name". A "partial compilation" refers to a compilation that has some `(?~name)` parts left in due to missing patterns.
+## [/examples/pragma-parser.py](https://codeberg.org/Shae/RegExCompose/src/branch/main/examples/pragma-parser.py)
+The following script runs a REPL that will match each line of input against
+a "pragma" statement that can change the patterns on-the-fly
 
-# Syntax
-In this file, all examples and information given will presume the default pattern is being used (`REFPATT_PATT`). All procedures and initializers that have a `refpatt_patt` parameter will accept an alternative pattern that can change this.  
-The default pattern matches `(?~name)`, where `name` is the pattern to be used.
+```python3
+#> Imports
+import re
+import regex_compose
+#</Imports
 
-# Process
-This section contains information on both what the main interface (namely, [`PatternComposer`](#patterncomposer)) does, as well as why/how it does it.
+#> Header
+base_patterns = {
+    'word': r'\w',
+    'number': r'\d',
+    'wordnum': r'(?~word)|(?~number)',
+}
 
-## Adding a pattern
-When a pattern, usually with `PatternComposer.add()` or `PatternComposer.multiadd()` with name `name` and pattern `patt` is added (or replaced), `PatternComposer.patterns[name]` is set to `patt`. Then, the pattern is [updated](#)
+pragma_patterns = {
+    'pragma.start': r'^\$',
+    'pragma.stop': r'$',
+    'pragma.key': r'(?P<key>(?:(?~wordnum)|\.)+)',
+    'pragma.delim': r':',
+    'pragma.val': r'(?P<val>.*?)',
+    'pragma.flags': r'(?m)',
+    'pragma': r'(?~pragma.flags)(?~pragma.start)(?~pragma.key)(?~pragma.delim)(?~pragma.val)(?~pragma.stop)',
+}
+#</Header
 
-# Documentation
-Also see docstrings in `__init__.py` for (possibly) more detailed/up-to-date information
+#> Main >/
+# Create parser and add `base_patterns` and `pragma_patterns`
+p = regex_compose.PatternComposer()
+p.multiadd(base_patterns)
+p.multiadd(pragma_patterns)
 
-## Exceptions
+print(f'Pragma pattern: {rc.patterns["pragma"]}\n -> {rc.compiled["pragma"]}')
+while True:
+    inp = input('Enter text to parse > ')
+    if m := re.match(p['pragma'], inp):
+        rc.add(m.group('key'), m.group('val'), replace=True)
+        print(p.compiled['pragma'])
+    else: print(inp) # echo the line back when there's no pragma
+```
 
-[`PatternComposeException(Exception)`](#patterncomposexception)
- ├──[`exceptions.PatternExistsError`](#exceptionspatternexistserror)
- ├──[`exceptions.PatternNotFoundError(KeyError)`](#exceptionspatternnotfound)
- ├──[`exceptions.RequiredPatternError`](#exceptionsrequiredpatternerror)
- └──[`exceptions.IncompletePatternError`](#exceptionsincompletepatternerror)
- 
-### `PatternComposeException`
+> `Pragma pattern: (?~pragma.flags)(?~pragma.start)(?~pragma.key)(?~pragma.delim)(?~pragma.val)(?~pragma.stop)`
+>> `test`
+> `test`
+>> `$pragma.start:%`
+> `(?m)%(?P<key>(?:\w|\d|\.)+):(?P<val>.*?)$`
+>> `%pragma.stop:;`
+> `(?m)%(?P<key>(?:\w|\d|\.)+):(?P<val>.*?);`
+>> `(?m)%(?P<key>(?:\w|\d|\.)+)=(?P<val>.*?);`
+> `(?m)%(?P<key>(?:\w|\d|\.)+)=(?P<val>.*?);`
 
-The base exception class
+For further examples, see [https://codeberg.org/Shae/RegExCompose/src/branch/main/examples](https://codeberg.org/Shae/RegExCompose/src/branch/main/examples)
 
-Note that this exception is both in the module's global namespace, as well as in the `exceptions` namespace
-
-### `exceptions.PatternExistsError`
-Raised when a pattern could not be added due to its name already being taken
-
-Raised by:
-- [`PatternComposer.add()`](#add) and [`PatternComposer.multiadd()`](#multiadd)
-
-### `exceptions.PatternNotFoundError`
-Raised when a pattern was directly needed, but not defined
-
-Raised by:
-- [`compile_refpatt()`](#compile_refpatt) *(only when its `allow_partial` is false)*
-- [`PatternComposer.update()`](#update) and [`PatternComposer.multiupdate()`](#multiupdate)
-- [`PatternComposer.__getitem__()`](#__getitem__) / [`PatternComposer[]`](#__getitem__)
-
-In addition to inheriting from [`PatternComposeException`](#patterncomposeexception), this exception also inherits from `KeyError`
-
-### `exceptions.IncompletePatternError`
-Raised when a fully compiled non-partial pattern is required, but it couldn't be fully resolved
-
-Raised by:
-- [`PatternComposer.__getitem__()`](#__getitem__) / [`PatternComposer[]`](#__getitem__)
-
-## Functions
-Functions that do not need the state provided by `PatternComposer`
-
-### `get_refpatt_parts()`
-
-### `compile_refpatt()`
-
-# PatternComposer
-The main interface of this package
-
-## Instance variables
-- `.patterns`: `dict`
-  - Keys: `str`, the name of the pattern
-  - Vals: `str`, the uncompiled pattern
-- `.references`: `dict`
-  - Keys: `str`, the name of the referrer pattern
-  - Vals: `frozenset[str]`, the reference-pattern parts that the pattern contains, as returned by [`get_refpatt_parts()`](get_refpatt_parts)
-- `.compiled`: `dict`
-  - Keys: `str`, the name of the pattern
-  - Vals: `str`, the value of the pattern, constructed through
-
-Note that the only one of these that is probably safe(r) to mutate is `refpatt_patt`, modifying any of the rest is considered undefined behavior when not following [Process](#process)
-
-## Initializer Parameters
-
-## Methods
-
-### `__getitem__()` `[]`
-Params:
-- `patt`: `str`
-
-Returns the compiled pattern with the name `patt`, but raises a [`exceptions.IncompletePatternError`] if the pattern is incomplete ([`.is_complete(patt)`](#iscomplete) is false)
-
-Raises a [`exceptions.PatternNotFoundError`](#exceptionspatternnotfounderror) if `patt` isn't a known pattern
-
-### `.add()`
-Params:
-- `name`: `str`
-- `patt`: `str`
-- (kw-only) `replace`: `bool` = `False`
-
-[Adds a new pattern](#adding-a-pattern), but raises a [`exceptions.PatternExistsError`](#exceptionspatternexistserror) if `name` already specifies a pattern and `replace` is false
-
-#### `.multiadd()`
-Params:
-- `patts`: `dict` (`str` -> `str`)
-- (kw-only) `replace`: `bool` = `False`
-
-
-### `.update()`
-#### `.multiupdate()`
-### `.remove()`
-### `.is_complete()`
-#### `.list_incomplete()`
-### `.find_referrers()`
-#### `.find_referrers_recursive()`
+# Links
+- Source code: [https://codeberg.org/Shae/RegExCompose](https://codeberg.org/Shae/RegExCompose)
+- License: [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
