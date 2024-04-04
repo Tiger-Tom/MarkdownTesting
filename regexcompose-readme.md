@@ -59,14 +59,14 @@ while True:
     else: print(inp) # echo the line back when there's no pragma
 ```
 
-> `Pragma pattern: (?~pragma.flags)(?~pragma.start)(?~pragma.key)(?~pragma.delim)(?~pragma.val)(?~pragma.stop)`
->> `test`
-> `test`
->> `$pragma.start:%`
-> `(?m)%(?P<key>(?:\w|\d|\.)+):(?P<val>.*?)$`
->> `%pragma.stop:;`
-> `(?m)%(?P<key>(?:\w|\d|\.)+):(?P<val>.*?);`
->> `(?m)%(?P<key>(?:\w|\d|\.)+)=(?P<val>.*?);`
+> `Pragma pattern: (?~pragma.flags)(?~pragma.start)(?~pragma.key)(?~pragma.delim)(?~pragma.val)(?~pragma.stop)`  
+>> `test`  
+> `test`  
+>> `$pragma.start:%`  
+> `(?m)%(?P<key>(?:\w|\d|\.)+):(?P<val>.*?)$`  
+>> `%pragma.stop:;`  
+> `(?m)%(?P<key>(?:\w|\d|\.)+):(?P<val>.*?);`  
+>> `(?m)%(?P<key>(?:\w|\d|\.)+)=(?P<val>.*?);`  
 > `(?m)%(?P<key>(?:\w|\d|\.)+)=(?P<val>.*?);`
 
 For further examples, see [https://codeberg.org/Shae/RegExCompose/src/branch/main/examples](https://codeberg.org/Shae/RegExCompose/src/branch/main/examples)
